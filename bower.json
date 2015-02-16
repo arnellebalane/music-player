@@ -1,0 +1,27 @@
+{
+  "name": "vplayer",
+  "version": "1.0.0",
+  "homepage": "https://github.com/arnellebalane/vplayer",
+  "authors": [
+    "Arnelle Balane <arnellebalane@gmail.com>"
+  ],
+  "description": "valentines music player",
+  "main": "index.html",
+  "keywords": [
+    "valentines",
+    "music",
+    "player"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Happy Valentine's Day</title>
+        <link rel="stylesheet" href="assets/stylesheets/application.css">
+    </head>
+
+    <body>
+        <ul class="playlist">
+            <h3>Current Playlist</h3>
+        </ul>
+
+        <div class="player-container">
+            <div class="element"></div>
+
+            <span class="control playlist-toggle" title="Toggle Playlist (P)"></span>
+            <span class="control prev" title="Previous (Right Next)" data-action="prev"></span>
+            <span class="control next" title="Next (Right Arrow)" data-action="next"></span>
+            <span class="control stop" title="Stop (S)" data-action="stop"></span>
+
+            <a href="https://github.com/arnellebalane/webex/tree/master/web-audio" target="_blank">View Source</a>
+        </div>
+
+        <div class="overlay">
+            <p>Loading Audio Files...<span></span></p>
+        </div>
+
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="assets/javascripts/application.js"></script>
+    </body>
+</html>
