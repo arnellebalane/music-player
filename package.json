@@ -1,34 +1,11 @@
 {
   "name": "vplayer",
-  "version": "1.0.0",
   "description": "valentines music player",
-  "main": "index.html",
-  "scripts": {
-    "start": "nw",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/arnellebalane/vplayer.git"
-  },
-  "keywords": [
-    "valentines",
-    "music",
-    "player"
-  ],
-  "author": "Arnelle Balane <arnellebalane@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/arnellebalane/vplayer/issues"
-  },
-  "homepage": "https://github.com/arnellebalane/vplayer",
-  "dependencies": {
-    "nw": "^0.12.0-alpha2"
-  },
+  "version": "0.1",
   "main": "index.html",
   "window": {
-    "toolbar": false,
-    "width": 800,
-    "height": 600
+    "toolbar": true,
+    "width": 660,
+    "height": 500
   }
 }

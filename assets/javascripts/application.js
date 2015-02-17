@@ -1,38 +1,7 @@
 var context = new AudioContext();
 var processor = context.createScriptProcessor(1024);
 var analyser = context.createAnalyser();
-var playlist = [
-    {
-        title: 'A Step You Can\'t Take Back',
-        url: './audios/a step you cant take back.mp3',
-        element: null
-    },
-    {
-        title: 'Coming Up Roses',
-        url: './audios/coming up roses.mp3',
-        element: null
-    },
-    {
-        title: 'Like A Fool',
-        url: './audios/like a fool.mp3',
-        element: null
-    },
-    {
-        title: 'Lost Stars',
-        url: './audios/lost stars.mp3',
-        element: null
-    },
-    {
-        title: 'Lost Stars (Remix)',
-        url: './audios/lost stars - remix.mp3',
-        element: null
-    },
-    {
-        title: 'Tell Me If You Wanna Go Home',
-        url: './audios/tell me if you wanna go home.mp3',
-        element: null
-    }
-];
+var playlist = [];
 
 
 processor.connect(context.destination);
@@ -144,7 +113,7 @@ var player = {
         player.play(++player.index % playlist.length);
     }
 };
-player.initialize();
+// player.initialize();
 
 
 function Sound(element) {
@@ -237,7 +206,7 @@ function render() {
         element.style.transform = 'translateX(' + offset + 'px) scaleY(' + value + ')';
     }
 }
-render();
+// render();
 
 
 
