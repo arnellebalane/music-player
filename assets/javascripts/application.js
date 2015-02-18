@@ -1,65 +1,41 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        requirejs(['mustache', 'scripts/player', 'scripts/file-explorer', 'scripts/visualizer'], func);
+        requirejs(['stapes', 'scripts/player', 'scripts/file-explorer', 'scripts/slider', 'scripts/visualizer'], func);
     } else {
-        func(root.Mustache, root.Player, root.FileExplorer, root.visualizer);
+        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.visualizer);
     }
-})(this, function(Mustache, Player, FileExplorer, visualizer) {
+})(this, function(Stapes, Player, FileExplorer, Slider, visualizer) {
     var templates = {
         file_explorer: $('#explorer-item').html()
     };
 
-    var explorer = new FileExplorer({ base_url: '/home/arnelle/Downloads', filters: ['mp3'] });
 
-    var slider = {
-        $element: $('.slider-menu'),
-        $title: $('.slider-menu .slider-menu__title'),
-        $list: $('.slider-menu .menu-list'),
-
-        initialize: function() {
-            var self = this;
-            this.$element.on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if ($(e.target).hasClass('close-button')) {
-                    self.$element.removeClass('slider-menu--opened');
-                }
+    var vPlayer = Stapes.subclass({
+        constructor: function() {
+            this.explorer = new FileExplorer({
+                base_url: '/home/arnelle/Downloads', 
+                filters: ['mp3'] 
             });
-        },
-
-        open: function(title) {
-            this.$title.text(title);
-            this.$element.addClass('slider-menu--opened');
-        },
-
-        list: function(items, format) {
+            this.slider = new Slider(
+                $('.slider-menu'), 
+                $('.slider-menu__title'), 
+                $('.slider-menu .menu-list')
+            );
             var self = this;
-            this.$list.empty();
-            items.forEach(function(item) {
-                item = Mustache.render(format, item);
-                self.$list.append(item);
+
+            this.explorer.on('open', function() {
+                self.slider.open('Browse Music');
+            });
+
+            this.explorer.on('changedirectory', function(files) {
+                self.slider.list(files, templates.file_explorer);
             });
         }
-    };
-    slider.initialize();
-
-    var vplayer = {
-        initialize: function() {
-            var self = this;
-
-            explorer.on('open', function() {
-                slider.open('Browse Music');
-            });
-
-            explorer.on('changedirectory', function(files) {
-                slider.list(files, templates.file_explorer);
-            });
-        }
-    };
-    vplayer.initialize();
+    });
+    var vplayer = new vPlayer();
 
 
     $(document).on('click', function(e) {
-        explorer.open();
+        vplayer.explorer.open();
     });
 });
