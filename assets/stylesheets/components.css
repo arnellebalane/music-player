@@ -1,0 +1,78 @@
+.slider-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #941242;
+    -webkit-clip-path: polygon(0 25px, 100% 0, 100% 100%, 0 100%);
+    transition: top 450ms cubic-bezier(.77,-0.5,.48,1.43);
+}
+
+.slider-menu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 3px;
+    z-index: 1;
+    height: 35px;
+    background-color: #941242;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 10px, 0 100%);
+}
+
+.slider-menu.slider-menu--opened {
+    top: 50%;
+}
+
+
+.slider-menu__contents {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 25px 0 10px 0;
+    overflow: auto;
+}
+
+
+.slider-menu__title {
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    color: #3e071b;
+}
+
+
+.slider-menu .component-header {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+
+.component-header {
+    position: relative;
+    padding: 15px 0;
+}
+
+
+.menu-list {
+    list-stype: none;
+}
+
+
+.menu-list__item {
+    display: block;
+    font: normal 1.4rem/1 "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
+    color: white;
+    padding: 10px 25px;
+    cursor: pointer;
+    transition: padding-left 180ms cubic-bezier(0.74, 0.06, 0.36, 1.68);
+}
+
+.menu-list__item:hover,
+.menu-list__item.active {
+    color: #941242;
+    background-color: white;
+    padding-left: 30px;
+}
