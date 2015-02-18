@@ -3,10 +3,11 @@
     <head>
         <title>vplayer</title>
         <link rel="stylesheet" href="assets/stylesheets/application.css">
+        <link rel="stylesheet" href="assets/stylesheets/components.css">
     </head>
 
     <body>
-        <ul class="playlist">
+        <!-- <ul class="playlist">
             <h3>Current Playlist</h3>
         </ul>
 
@@ -17,7 +18,15 @@
             <span class="control prev" title="Previous (Right Next)" data-action="prev"></span>
             <span class="control next" title="Next (Right Arrow)" data-action="next"></span>
             <span class="control stop" title="Stop (S)" data-action="stop"></span>
-        </div>
+        </div> -->
+
+        <section class="slider-menu">
+            <header class="component-header">
+                <span class="close-button"></span>
+                <h1 class="slider-menu__title">Current Playlist</h1>
+            </header>
+            <ul class="menu-list"></ul>
+        </section>
 
         <script>
             // workaround to the name conflicts between nw and requirejs
@@ -27,7 +36,8 @@
                 paths: {
                     'scripts': 'assets/javascripts',
                     'jquery': 'bower_components/jquery/dist/jquery',
-                    'stapes': 'bower_components/stapes/stapes'
+                    'stapes': 'bower_components/stapes/stapes',
+                    'mustache': 'bower_components/mustache/mustache'
                 }
             };
         </script>

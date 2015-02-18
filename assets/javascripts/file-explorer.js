@@ -33,9 +33,12 @@
             var files = [];
 
             fs.readdirSync(location).forEach(function(file) {
-                if (fs.statSync(path.join(location, file)).isDirectory()) {
+                file = { name: file, path: path.join(location, file) };
+                if (fs.statSync(file.path).isDirectory()) {
+                    file.type = 'directory';
                     dirs.push(file);
-                } else if (self._valid(file)) {
+                } else if (self._valid(file.name)) {
+                    file.type = 'file';
                     files.push(file);
                 }
             });
