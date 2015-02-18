@@ -6,7 +6,7 @@
     }
 })(this, function(Mustache, Player, FileExplorer, visualizer) {
     var templates = {
-        menu_item: '<li class="menu-list__item" data-path="{{ path }}">{{ name }}</li>'
+        file_explorer: $('#explorer-item').html()
     };
 
     var explorer = new FileExplorer({ base_url: '/home/arnelle/Downloads', filters: ['mp3'] });
@@ -15,6 +15,17 @@
         $element: $('.slider-menu'),
         $title: $('.slider-menu .slider-menu__title'),
         $list: $('.slider-menu .menu-list'),
+
+        initialize: function() {
+            var self = this;
+            this.$element.on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(e.target).hasClass('close-button')) {
+                    self.$element.removeClass('slider-menu--opened');
+                }
+            });
+        },
 
         open: function(title) {
             this.$title.text(title);
@@ -30,6 +41,7 @@
             });
         }
     };
+    slider.initialize();
 
     var vplayer = {
         initialize: function() {
@@ -40,7 +52,7 @@
             });
 
             explorer.on('changedirectory', function(files) {
-                slider.list(files, templates.menu_item);
+                slider.list(files, templates.file_explorer);
             });
         }
     };

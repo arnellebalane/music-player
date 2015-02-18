@@ -28,6 +28,13 @@
             <ul class="menu-list"></ul>
         </section>
 
+        <template id="explorer-item">
+            <li class="menu-list__item" data-path="{{ path }}">
+                <span class="icon {{ type }}"></span>
+                {{ name }}
+            </li>
+        </template>
+
         <script>
             // workaround to the name conflicts between nw and requirejs
             window.node_require = window.require;

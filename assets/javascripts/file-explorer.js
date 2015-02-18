@@ -38,7 +38,7 @@
                     file.type = 'directory';
                     dirs.push(file);
                 } else if (self._valid(file.name)) {
-                    file.type = 'file';
+                    file.type = path.extname(file.name).substring(1);
                     files.push(file);
                 }
             });
@@ -46,8 +46,8 @@
             this.emit('changedirectory', dirs.concat(files));
         },
 
-        _valid: function(file) {
-            return this.config.filters.indexOf(path.extname(file).substring(1)) > -1;
+        _valid: function(name) {
+            return this.config.filters.indexOf(path.extname(name).substring(1)) > -1;
         }
     });
 

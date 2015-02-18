@@ -31,6 +31,23 @@
 }
 
 
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: center center no-repeat;
+    background-size: contain;
+}
+
+.icon.directory {
+    background-image: url("../images/folder.svg");
+}
+
+.icon.mp3 {
+    background-image: url("../images/music.svg");
+}
+
+
 .menu-list {
     list-style: none;
 }
@@ -50,6 +67,12 @@
     color: #941242;
     background-color: white;
     padding-left: 30px;
+}
+
+
+.menu-list__item .icon {
+    float: left;
+    margin-right: 5px;
 }
 
 
