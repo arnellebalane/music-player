@@ -13,7 +13,7 @@
     var vPlayer = Stapes.subclass({
         constructor: function() {
             this.explorer = new FileExplorer({
-                base_url: '/home/arnelle/Downloads', 
+                base_url: '/home/arnelle/Downloads',
                 filters: ['mp3'] 
             });
             this.slider = new Slider(

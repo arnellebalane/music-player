@@ -37,7 +37,8 @@
                 if (fs.statSync(file.path).isDirectory()) {
                     file.type = 'directory';
                     dirs.push(file);
-                } else if (self._valid(file.name)) {
+                } else if (!self.config.filters.length
+                        || self._valid(file.name)) {
                     file.type = path.extname(file.name).substring(1);
                     files.push(file);
                 }
