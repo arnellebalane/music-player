@@ -1,6 +1,6 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        requirejs(['stapes', 'scripts/player', 'scripts/file-explorer', 'scripts/slider', 'scripts/visualizer'], func);
+        requirejs(['stapes', 'player', 'file-explorer', 'slider', 'visualizer'], func);
     } else {
         func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.visualizer);
     }

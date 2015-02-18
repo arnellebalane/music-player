@@ -1,6 +1,6 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        define(['stapes', 'scripts/extend'], func);
+        define(['stapes', 'extend'], func);
     } else {
         root.FileExplorer = func(root.Stapes);
     }

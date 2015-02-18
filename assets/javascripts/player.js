@@ -1,6 +1,6 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        define(['stapes', 'scripts/sound'], func);
+        define(['stapes', 'sound'], func);
     } else {
         root.Player = func(root.Stapes, root.Sound);
     }
