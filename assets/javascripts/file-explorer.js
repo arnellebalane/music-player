@@ -26,13 +26,21 @@
         },
 
         cd: function(location) {
+            location = path.resolve(location);
             this.cwd = location;
 
             var self = this;
             var dirs = [];
             var files = [];
 
-            fs.readdirSync(location).forEach(function(file) {
+            try {
+                var contents = fs.readdirSync(location);
+            } catch (e) {
+                this.emit('error', 'Permission Denied.');
+                return;
+            }
+
+            contents.forEach(function(file) {
                 file = { name: file, path: path.join(location, file) };
                 if (fs.statSync(file.path).isDirectory()) {
                     file.type = 'directory';
@@ -43,6 +51,14 @@
                     files.push(file);
                 }
             });
+
+            if (location !== '/') {
+                dirs.unshift({ 
+                    name: '(parent directory)', 
+                    path: path.join(location, '..'),
+                    type: 'directory'
+                });
+            }
 
             this.emit('changedirectory', dirs.concat(files));
         },

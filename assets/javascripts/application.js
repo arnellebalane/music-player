@@ -24,11 +24,21 @@
             var self = this;
 
             this.explorer.on('open', function() {
-                self.slider.open('Browse Music');
+                self.slider.open('explorer', 'Browse Music');
             });
-
+                
             this.explorer.on('changedirectory', function(files) {
                 self.slider.list(files, templates.file_explorer);
+            });
+
+            this.explorer.on('error', function(error) {
+                console.info(error);
+            });
+
+            this.slider.on('doubleclick', function(item) {
+                if (item.data('type') === 'directory') {
+                    self.explorer.cd(item.data('path'));
+                }
             });
         }
     });
