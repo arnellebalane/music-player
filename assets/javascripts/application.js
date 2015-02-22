@@ -20,6 +20,7 @@
                 filters: ['mp3'] 
             });
             this.slider = new Slider($('.slider-menu'));
+            this.player = new Player();
             this.notifier = new Notifier(templates.notification);
             var self = this;
 
@@ -42,8 +43,6 @@
                 }
             });
 
-            this.explorer.on('error', this.notifier.notify);
-
             this.slider.on('actionbutton', function(action) {
                 if (action === 'close') {
                     self.slider.close();
@@ -56,8 +55,13 @@
                 if (item.data('type') === 'directory') {
                     self.explorer.cd(item.data('path'));
                     self.slider.subtitle(self.explorer.pwd());
+                } else if (item.data('type') === 'mp3') {
+                    self.player.add(item.data('path'));
                 }
             });
+
+            this.explorer.on('error', this.notifier.notify);
+            this.player.on('message', this.notifier.notify);
         }
     });
     var vplayer = new vPlayer();
