@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="assets/stylesheets/application.css">
         <link rel="stylesheet" href="assets/stylesheets/components.css">
         <link rel="stylesheet" href="assets/stylesheets/slider.css">
+        <link rel="stylesheet" href="assets/stylesheets/notifier.css">
     </head>
 
     <body>
@@ -29,11 +30,15 @@
             <ul class="menu-list"></ul>
         </section>
 
-        <template id="explorer-item">
+        <template id="explorer-item-template">
             <li class="menu-list__item" data-path="{{ path }}" data-type="{{ type }}">
                 <span class="icon {{ type }}"></span>
                 {{ name }}
             </li>
+        </template>
+
+        <template id="notification-template">
+            <p class="notification notification--hidden">{{ message }}</p>
         </template>
 
         <script>

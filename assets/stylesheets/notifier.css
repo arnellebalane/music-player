@@ -1,0 +1,17 @@
+.notification {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    font: normal 1.2rem/1 "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+    transition: opacity 300ms ease;
+    transform: translateX(-50%);
+}
+
+.notification--hidden {
+    opacity: 0;
+}

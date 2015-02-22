@@ -1,12 +1,13 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        requirejs(['stapes', 'player', 'file-explorer', 'slider', 'visualizer'], func);
+        requirejs(['stapes', 'player', 'file-explorer', 'slider', 'notifier', 'visualizer'], func);
     } else {
-        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.visualizer);
+        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.Notifier, root.visualizer);
     }
-})(this, function(Stapes, Player, FileExplorer, Slider, visualizer) {
+})(this, function(Stapes, Player, FileExplorer, Slider, Notifier, visualizer) {
     var templates = {
-        file_explorer: $('#explorer-item').html()
+        file_explorer: $('#explorer-item-template').html(),
+        notification: $('#notification-template').html()
     };
 
 
@@ -21,6 +22,7 @@
                 $('.slider-menu__title'), 
                 $('.slider-menu .menu-list')
             );
+            this.notifier = new Notifier(templates.notification);
             var self = this;
 
             this.explorer.on('open', function() {
@@ -43,6 +45,7 @@
         }
     });
     var vplayer = new vPlayer();
+    vplayer.notifier.notify('Welcome to vPlayer!');
 
 
     $(document).on('click', function(e) {
