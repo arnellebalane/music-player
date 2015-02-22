@@ -33,9 +33,7 @@
                 self.slider.list(files, templates.file_explorer);
             });
 
-            this.explorer.on('error', function(error) {
-                console.info(error);
-            });
+            this.explorer.on('error', this.notifier.notify);
 
             this.slider.on('doubleclick', function(item) {
                 if (item.data('type') === 'directory') {
@@ -45,7 +43,6 @@
         }
     });
     var vplayer = new vPlayer();
-    vplayer.notifier.notify('Welcome to vPlayer!');
 
 
     $(document).on('click', function(e) {
