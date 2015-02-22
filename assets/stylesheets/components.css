@@ -4,33 +4,6 @@
 }
 
 
-.component-header .close-button {
-    float: right;
-    margin-top: 2px;
-}
-
-
-.close-button {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    font: bold 1.4rem/16px "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
-    text-align: center;
-    color: #3e071b;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 250ms ease;
-}
-
-.close-button::before {
-    content: "\00d7";
-}
-
-.close-button:hover {
-    background-color: #7d0f38;
-}
-
-
 .icon {
     display: inline-block;
     width: 16px;

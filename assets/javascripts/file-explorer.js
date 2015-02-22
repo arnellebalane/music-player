@@ -10,6 +10,7 @@
 
     var FileExplorer = Stapes.subclass({
         cwd: '/',
+        isroot: false,
         config: {
             base_url: '/',
             filters: [],
@@ -26,9 +27,13 @@
             this.cd(this.cwd);
         },
 
-        cd: function(location) {
+        cd: function(location, relative) {
+            if (relative) {
+                location = path.join(this.cwd, location);
+            }
             location = path.resolve(location);
             this.cwd = location;
+            this.isroot = location === '/';
 
             var self = this;
             var dirs = [];
@@ -56,15 +61,15 @@
                 }
             });
 
-            if (location !== '/') {
-                dirs.unshift({ 
-                    name: '(parent directory)', 
-                    path: path.join(location, '..'),
-                    type: 'directory'
-                });
-            }
-
             this.emit('changedirectory', dirs.concat(files));
+        },
+
+        pwd: function() {
+            var segments = this.cwd.split(path.sep);
+            if (segments.length > 4) {
+                segments.splice(2, segments.length - 4, '...');
+            }
+            return segments.join(path.sep);
         },
 
         _valid: function(name) {
