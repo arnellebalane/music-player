@@ -73,10 +73,14 @@
 
 .slider-menu .menu-list {
     position: absolute;
-    top: 88px;
+    top: 75px;
     left: 0;
     right: 0;
     bottom: 0;
     padding-bottom: 10px;
     overflow: auto;
+}
+
+.slider-menu .menu-list--lower {
+    top: 88px;
 }

@@ -56,6 +56,11 @@
 
         subtitle: function(subtitle) {
             this.$subtitle.text(subtitle);
+            if (subtitle.length) {
+                this.$contents.addClass('menu-list--lower');
+            } else {
+                this.$contents.removeClass('menu-list--lower');
+            }
             return this;
         },
 

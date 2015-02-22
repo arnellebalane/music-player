@@ -32,14 +32,12 @@
     color: white;
     padding: 10px 25px;
     cursor: pointer;
-    transition: padding-left 180ms cubic-bezier(0.74, 0.06, 0.36, 1.68);
 }
 
 .menu-list__item:hover,
 .menu-list__item.menu-list__item--selected {
     color: #941242;
     background-color: white;
-    padding-left: 30px;
 }
 
 
