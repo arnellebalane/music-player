@@ -19,7 +19,7 @@
             if (notification) {
                 clearTimeout(s);
                 clearTimeout(t);
-                this.close(notification);
+                self.close(notification);
             }
             notification = $(Mustache.render(template, { message: message }));
             $(document.body).append(notification);
