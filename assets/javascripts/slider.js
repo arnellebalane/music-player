@@ -41,11 +41,21 @@
 
         list: function(items, format) {
             var self = this;
-            this.$contents.empty().scrollTop(0);
+            this.empty();
             items.forEach(function(item) {
                 item = Mustache.render(format, item);
-                self.$contents.append(item);
+                self.append(item);
             });
+            return this;
+        },
+
+        append: function(element) {
+            this.$contents.append(element);
+            return this;
+        },
+
+        empty: function() {
+            this.$contents.empty().scrollTop(0);
             return this;
         },
 

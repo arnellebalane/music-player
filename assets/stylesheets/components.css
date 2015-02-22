@@ -45,3 +45,12 @@
     float: left;
     margin-right: 7px;
 }
+
+
+.menu-list__item--null {
+    display: block;
+    font: normal 1.4rem/1 "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
+    text-align: center;
+    color: #bbb;
+    padding: 10px 25px;
+}

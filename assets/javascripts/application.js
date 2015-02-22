@@ -6,6 +6,7 @@
     }
 })(this, function(Stapes, Player, FileExplorer, Slider, Notifier, visualizer) {
     var templates = {
+        null_list_item: $('#null-list-item-template').html(),
         explorer_actions: $('#explorer-actions-template').html(),
         explorer_item: $('#explorer-item-template').html(),
         notification: $('#notification-template').html()
@@ -28,8 +29,12 @@
             });
                 
             this.explorer.on('changedirectory', function(files) {
-                self.slider.list(files, templates.explorer_item);
                 self.slider.subtitle(self.explorer.pwd());
+                if (files.length) {
+                    self.slider.list(files, templates.explorer_item);
+                } else {
+                    self.slider.empty().append(templates.null_list_item);
+                }
                 if (self.explorer.isroot) {
                     self.slider.actions('');
                 } else {
