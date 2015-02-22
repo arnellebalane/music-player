@@ -27,6 +27,8 @@ body {
     height: 100%;
     font-family: "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
     overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 
