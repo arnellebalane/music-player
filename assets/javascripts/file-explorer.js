@@ -12,7 +12,8 @@
         cwd: '/',
         config: {
             base_url: '/',
-            filters: []
+            filters: [],
+            hidden_files: false
         },
 
         constructor: function(config) {
@@ -41,14 +42,17 @@
             }
 
             contents.forEach(function(file) {
-                file = { name: file, path: path.join(location, file) };
-                if (fs.statSync(file.path).isDirectory()) {
-                    file.type = 'directory';
-                    dirs.push(file);
-                } else if (!self.config.filters.length
-                        || self._valid(file.name)) {
-                    file.type = path.extname(file.name).substring(1);
-                    files.push(file);
+                if (self.config.hidden_files 
+                        || !self.config.hidden_files && !file.match(/^\./)) {
+                    file = { name: file, path: path.join(location, file) };
+                    if (fs.statSync(file.path).isDirectory()) {
+                        file.type = 'directory';
+                        dirs.push(file);
+                    } else if (!self.config.filters.length
+                            || self._valid(file.name)) {
+                        file.type = path.extname(file.name).substring(1);
+                        files.push(file);
+                    }
                 }
             });
 
