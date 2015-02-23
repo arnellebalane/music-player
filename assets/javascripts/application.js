@@ -9,6 +9,7 @@
         null_list_item: $('#null-list-item-template').html(),
         explorer_actions: $('#explorer-actions-template').html(),
         explorer_item: $('#explorer-item-template').html(),
+        playlist_item: $('#playlist-item-template').html(),
         notification: $('#notification-template').html()
     };
 
@@ -26,8 +27,10 @@
             var self = this;
 
             this.explorer.on('open', function() {
-                self.slider.open().actions(templates.explorer_actions);
-                self.slider.title('Browse Music').subtitle(self.explorer.pwd());
+                self.slider.open()
+                    .actions(templates.explorer_actions)
+                    .title('Browse Music')
+                    .subtitle(self.explorer.pwd());
             });
                 
             this.explorer.on('changedirectory', function(files) {
@@ -70,7 +73,21 @@
             });
 
             this.visualizer.on('playercontrol', function(action) {
-                console.log(action);
+                if (action === 'playlist') {
+                    self.slider.open().title('Current Playlist');
+                    if (self.player.playlist.length) {
+                        self.slider.list(
+                            self.player.playlist, 
+                            templates.playlist_item
+                        );
+                    } else {
+                        var template = Mustache.render(
+                            templates.null_list_item, 
+                            { message: 'There\'s nothing in your playlist.' }
+                        );
+                        self.slider.empty().append(template);
+                    }
+                }
             });
 
             this.explorer.on('error', this.notifier.notify);

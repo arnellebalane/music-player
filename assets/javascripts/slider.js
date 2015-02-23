@@ -31,7 +31,7 @@
 
         open: function() {
             this.$element.addClass('slider-menu--opened');
-            return this;
+            return this.clear();
         },
 
         close: function() {
@@ -52,6 +52,10 @@
         append: function(element) {
             this.$contents.append(element);
             return this;
+        },
+
+        clear: function() {
+            return this.title('').subtitle('').actions('');
         },
 
         empty: function() {

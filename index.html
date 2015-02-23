@@ -39,8 +39,8 @@
         <section class="slider-menu">
             <header class="component-header">
                 <hgroup class="slider-menu__titles">
-                    <h1 class="slider-menu__maintitle">Main Title</h1>
-                    <p class="slider-menu__subtitle">Subtitle</p>
+                    <h1 class="slider-menu__maintitle"></h1>
+                    <p class="slider-menu__subtitle"></p>
                 </hgroup>
                 <nav class="slider-menu__actions">
                     <span class="custom-actions"></span>
@@ -64,6 +64,14 @@
         <template id="explorer-item-template">
             <li class="menu-list__item" data-path="{{ path }}" data-type="{{ type }}">
                 <span class="icon {{ type }}"></span>
+                {{ name }}
+            </li>
+        </template>
+
+
+        <template id="playlist-item-template">
+            <li class="menu-list__item" data-path="{{ path }}">
+                <span class="icon mp3"></span>
                 {{ name }}
             </li>
         </template>
