@@ -1,3 +1,12 @@
+.visualization-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
 .visualization-container,
 .visualization-element {
     position: absolute;
@@ -141,4 +150,51 @@
     overflow: hidden;
     transform: none;
     will-change: transform;
+}
+
+
+.player-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 22px;
+    margin-top: -11px;
+}
+
+
+.player-control {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #941242 center center no-repeat;
+    background-size: 75%;
+    cursor: pointer;
+    transform: none;
+    transition: transform 250ms cubic-bezier(0.74, 0.06, 0.36, 1.68);
+}
+
+.player-control:hover {
+    transform: scale(1.2);
+}
+
+.player-control[data-action="playlist"] {
+    left: 50px;
+    background-image: url("../images/menu.svg");
+}
+
+.player-control[data-action="previous"] {
+    left: 85px;
+    background-image: url("../images/skip-previous.svg");
+}
+
+.player-control[data-action="next"] {
+    right: 85px;
+    background-image: url("../images/skip-next.svg");
+}
+
+.player-control[data-action="stop"] {
+    right: 50px;
+    background-image: url("../images/stop.svg");
 }

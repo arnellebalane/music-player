@@ -22,7 +22,7 @@
             this.slider = new Slider($('.slider-menu'));
             this.player = new Player();
             this.notifier = new Notifier(templates.notification);
-            this.visualizer = new Visualizer($('.visualization-container'));
+            this.visualizer = new Visualizer($('.visualization-body'));
             var self = this;
 
             this.explorer.on('open', function() {
@@ -63,6 +63,10 @@
 
             this.player.on('data', function(data) {
                 self.visualizer.visualize(data);
+            });
+
+            this.visualizer.on('playercontrol', function(action) {
+                console.log(action);
             });
 
             this.explorer.on('error', this.notifier.notify);
