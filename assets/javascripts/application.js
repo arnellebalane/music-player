@@ -1,10 +1,10 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        requirejs(['stapes', 'player', 'file-explorer', 'slider', 'notifier', 'visualizer'], func);
+        requirejs(['stapes', 'mustache', 'player', 'file-explorer', 'slider', 'notifier', 'visualizer'], func);
     } else {
-        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.Notifier, root.Visualizer);
+        func(root.Stapes, root.Mustache, root.Player, root.FileExplorer, root.Slider, root.Notifier, root.Visualizer);
     }
-})(this, function(Stapes, Player, FileExplorer, Slider, Notifier, Visualizer) {
+})(this, function(Stapes, Mustache, Player, FileExplorer, Slider, Notifier, Visualizer) {
     var templates = {
         null_list_item: $('#null-list-item-template').html(),
         explorer_actions: $('#explorer-actions-template').html(),
@@ -35,7 +35,11 @@
                 if (files.length) {
                     self.slider.list(files, templates.explorer_item);
                 } else {
-                    self.slider.empty().append(templates.null_list_item);
+                    var template = Mustache.render(
+                        templates.null_list_item, 
+                        { message: 'No music files here.' }
+                    );
+                    self.slider.empty().append(template);
                 }
                 if (self.explorer.isroot) {
                     self.slider.actions('');
