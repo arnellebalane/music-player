@@ -2,9 +2,9 @@
     if (typeof define === 'function' && define.amd) {
         requirejs(['stapes', 'player', 'file-explorer', 'slider', 'notifier', 'visualizer'], func);
     } else {
-        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.Notifier, root.visualizer);
+        func(root.Stapes, root.Player, root.FileExplorer, root.Slider, root.Notifier, root.Visualizer);
     }
-})(this, function(Stapes, Player, FileExplorer, Slider, Notifier, visualizer) {
+})(this, function(Stapes, Player, FileExplorer, Slider, Notifier, Visualizer) {
     var templates = {
         null_list_item: $('#null-list-item-template').html(),
         explorer_actions: $('#explorer-actions-template').html(),
@@ -22,6 +22,7 @@
             this.slider = new Slider($('.slider-menu'));
             this.player = new Player();
             this.notifier = new Notifier(templates.notification);
+            this.visualizer = new Visualizer($('.visualization-container'));
             var self = this;
 
             this.explorer.on('open', function() {

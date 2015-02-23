@@ -1,0 +1,144 @@
+.visualization-container,
+.visualization-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 200px;
+    height: 200px;
+    margin: auto;
+}
+
+
+.visualization-element {
+    border-radius: 50%;
+    background-color: #941242;
+}
+
+
+.visualization-element:before {
+    content: "\2764";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font: bold 16rem "Open Sans", "OpenSans", "Helvetica", "Arial", sans-serif;
+    text-align: center;
+    line-height: 210px;
+    color: white;
+    border-radius: 50%;
+    overflow: hidden;
+    text-shadow: 1px 1px 0 #670c2e,
+        2px 2px 0 #670c2e,
+        3px 3px 0 #670c2e,
+        4px 4px 0 #670c2e,
+        5px 5px 0 #670c2e,
+        6px 6px 0 #670c2e,
+        7px 7px 0 #670c2e,
+        8px 8px 0 #670c2e,
+        9px 9px 0 #670c2e,
+        10px 10px 0 #670c2e,
+        11px 11px 0 #670c2e,
+        12px 12px 0 #670c2e,
+        13px 13px 0 #670c2e,
+        14px 14px 0 #670c2e,
+        15px 15px 0 #670c2e,
+        16px 16px 0 #670c2e,
+        17px 17px 0 #670c2e,
+        18px 18px 0 #670c2e,
+        19px 19px 0 #670c2e,
+        20px 20px 0 #670c2e,
+        21px 21px 0 #670c2e,
+        22px 22px 0 #670c2e,
+        23px 23px 0 #670c2e,
+        24px 24px 0 #670c2e,
+        25px 25px 0 #670c2e,
+        26px 26px 0 #670c2e,
+        27px 27px 0 #670c2e,
+        28px 28px 0 #670c2e,
+        29px 29px 0 #670c2e,
+        30px 30px 0 #670c2e,
+        31px 31px 0 #670c2e,
+        32px 32px 0 #670c2e,
+        33px 33px 0 #670c2e,
+        34px 34px 0 #670c2e,
+        35px 35px 0 #670c2e,
+        36px 36px 0 #670c2e,
+        37px 37px 0 #670c2e,
+        38px 38px 0 #670c2e,
+        39px 39px 0 #670c2e,
+        40px 40px 0 #670c2e,
+        41px 41px 0 #670c2e,
+        42px 42px 0 #670c2e,
+        43px 43px 0 #670c2e,
+        44px 44px 0 #670c2e,
+        45px 45px 0 #670c2e,
+        46px 46px 0 #670c2e,
+        47px 47px 0 #670c2e,
+        48px 48px 0 #670c2e,
+        49px 49px 0 #670c2e,
+        50px 50px 0 #670c2e,
+        51px 51px 0 #670c2e,
+        52px 52px 0 #670c2e,
+        53px 53px 0 #670c2e,
+        54px 54px 0 #670c2e,
+        55px 55px 0 #670c2e,
+        56px 56px 0 #670c2e,
+        57px 57px 0 #670c2e,
+        58px 58px 0 #670c2e,
+        59px 59px 0 #670c2e,
+        60px 60px 0 #670c2e,
+        61px 61px 0 #670c2e,
+        62px 62px 0 #670c2e,
+        63px 63px 0 #670c2e,
+        64px 64px 0 #670c2e,
+        65px 65px 0 #670c2e,
+        66px 66px 0 #670c2e,
+        67px 67px 0 #670c2e,
+        68px 68px 0 #670c2e,
+        69px 69px 0 #670c2e,
+        70px 70px 0 #670c2e,
+        71px 71px 0 #670c2e,
+        72px 72px 0 #670c2e,
+        73px 73px 0 #670c2e,
+        74px 74px 0 #670c2e,
+        75px 75px 0 #670c2e,
+        76px 76px 0 #670c2e,
+        77px 77px 0 #670c2e,
+        78px 78px 0 #670c2e,
+        79px 79px 0 #670c2e,
+        80px 80px 0 #670c2e,
+        81px 81px 0 #670c2e,
+        82px 82px 0 #670c2e,
+        83px 83px 0 #670c2e,
+        84px 84px 0 #670c2e,
+        85px 85px 0 #670c2e,
+        86px 86px 0 #670c2e,
+        87px 87px 0 #670c2e,
+        88px 88px 0 #670c2e,
+        89px 89px 0 #670c2e,
+        90px 90px 0 #670c2e,
+        91px 91px 0 #670c2e,
+        92px 92px 0 #670c2e,
+        93px 93px 0 #670c2e,
+        94px 94px 0 #670c2e,
+        95px 95px 0 #670c2e,
+        96px 96px 0 #670c2e,
+        97px 97px 0 #670c2e,
+        98px 98px 0 #670c2e,
+        99px 99px 0 #670c2e,
+        100px 100px 0 #670c2e;
+}
+
+
+.visualization-strip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    transform: none;
+    will-change: transform;
+}

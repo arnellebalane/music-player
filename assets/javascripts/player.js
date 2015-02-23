@@ -9,9 +9,20 @@
 
 
     var Player = Stapes.subclass({
-        index: 0,
-        current: null,
-        playlist: [],
+        constructor: function() {
+            this.data_size = 1024;
+            this.index = 0;
+            this.current = null;
+            this.playlist = [];
+
+            this.context = new AudioContext();
+            this.processor = this.context.createScriptProcessor(this.data_size);
+            this.analyser = this.context.createAnalyser();
+            this.data = new Uint8Array(this.analyser.frequencyBinCount);
+
+            this.processor.connect(this.context.destination);
+            this.analyser.connect(this.processor);
+        },
 
         add: function(filepath) {
             var item = { path: filepath, name: path.basename(filepath) };
