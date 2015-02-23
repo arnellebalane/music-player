@@ -43,8 +43,6 @@
         function render() {
             requestAnimationFrame(render);
 
-            data = new Uint8Array(1024);
-
             for (var i = 0, j = 0; i < config.slices_count; i++, j += steps) {
                 var slice = slices[i];
                 var strip = slice.strip;

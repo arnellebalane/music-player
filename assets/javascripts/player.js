@@ -22,6 +22,13 @@
 
             this.processor.connect(this.context.destination);
             this.analyser.connect(this.processor);
+
+            var self = this;
+
+            this.processor.onaudioprocess = function() {
+                self.analyser.getByteTimeDomainData(self.data);
+                self.emit('data', self.data);
+            };
         },
 
         add: function(filepath) {

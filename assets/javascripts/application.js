@@ -61,6 +61,10 @@
                 }
             });
 
+            this.player.on('data', function(data) {
+                self.visualizer.visualize(data);
+            });
+
             this.explorer.on('error', this.notifier.notify);
             this.player.on('message', this.notifier.notify);
         }
