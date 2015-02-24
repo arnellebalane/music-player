@@ -13,6 +13,7 @@
             this.$actions = element.find('.slider-menu__actions');
             this.$customactions = element.find('.custom-actions');
             this.$contents = element.find('.menu-list');
+            this.mode = null;
             var self = this;
 
             this.$element.on('click', function(e) {
@@ -24,17 +25,26 @@
                 self.emit('actionbutton', $(this).data('action'));
             });
 
+            this.$contents.on('click', '[data-action]', function() {
+                self.emit('itemaction', { 
+                    action: $(this).data('action'),
+                    item: $(this).closest('.menu-list__item')
+                });
+            });
+
             this.$contents.on('dblclick', '.menu-list__item', function() {
                 self.emit('doubleclick', $(this));
             });
         },
 
-        open: function() {
+        open: function(mode) {
+            this.mode = mode;
             this.$element.addClass('slider-menu--opened');
             return this.clear();
         },
 
         close: function() {
+            this.mode = null;
             this.$element.removeClass('slider-menu--opened');
             return this;
         },

@@ -63,15 +63,20 @@
 
         <template id="explorer-item-template">
             <li class="menu-list__item" data-path="{{ path }}" data-type="{{ type }}">
-                <span class="icon {{ type }}"></span>
-                {{ name }}
+                <span class="menu-list__item-icon {{ type }}"></span>
+                <span>{{ name }}</span>
+                {{ #actions }}
+                <div class="slider-menu__actions">
+                    <span class="slider-menu__action" data-action="playlist-add"></span>
+                </div>
+                {{ /actions }}
             </li>
         </template>
 
 
         <template id="playlist-item-template">
             <li class="menu-list__item" data-path="{{ path }}">
-                <span class="icon mp3"></span>
+                <span class="menu-list__item-icon mp3"></span>
                 {{ name }}
             </li>
         </template>

@@ -27,7 +27,7 @@
             var self = this;
 
             this.explorer.on('open', function() {
-                self.slider.open()
+                self.slider.open('explorer')
                     .actions(templates.explorer_actions)
                     .title('Browse Music')
                     .subtitle(self.explorer.pwd());
@@ -36,6 +36,9 @@
             this.explorer.on('changedirectory', function(files) {
                 self.slider.subtitle(self.explorer.pwd());
                 if (files.length) {
+                    files.forEach(function(file) {
+                        file.actions = file.type !== 'directory';
+                    });
                     self.slider.list(files, templates.explorer_item);
                 } else {
                     var template = Mustache.render(
@@ -60,11 +63,23 @@
             });
 
             this.slider.on('doubleclick', function(item) {
-                if (item.data('type') === 'directory') {
-                    self.explorer.cd(item.data('path'));
-                    self.slider.subtitle(self.explorer.pwd());
-                } else if (item.data('type') === 'mp3') {
-                    self.player.add(item.data('path'));
+                if (self.slider.mode === 'explorer') {
+                    if (item.data('type') === 'directory') {
+                        self.explorer.cd(item.data('path'));
+                        self.slider.subtitle(self.explorer.pwd());
+                    } else if (item.data('type') === 'mp3') {
+                        self.player.add(item.data('path'));
+                    }
+                }
+            });
+
+            this.slider.on('itemaction', function(data) {
+                var action = data.action;
+                var item = data.item;
+                if (self.slider.mode === 'explorer') {
+                    if (action === 'playlist-add') {
+                        self.player.add(item.data('path'));
+                    }
                 }
             });
 
