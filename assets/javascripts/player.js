@@ -40,18 +40,52 @@
             if (found) {
                 this.emit('message', item.name + ' is already in the playlist.');
             } else {
-                this.playlist.push(item);
-                this.emit('message', item.name + ' added to playlist.');
+                var self = this;
+                this.load(item.path).then(function(audio) {
+                    item.sound = new Sound(audio, self.context);
+                    item.sound.hook(self.analyser);
+                    item.sound.hook(self.context.destination);
+                });
+                self.playlist.push(item);
+                self.emit('message', item.name + ' added to playlist.');
             }
             return this;
         },
 
-        play: function() {
+        load: function(filepath) {
+            return new Promise(function(resolve, reject) {
+                var audio = new Audio();
+                audio.addEventListener('canplay', function() {
+                    resolve(audio);
+                });
+                audio.addEventListener('error', reject);
+                audio.src = filepath;
+                resolve(audio);
+            });
+        },
 
+        play: function(filepath) {
+            if (this.current) {
+                this.current.stop();
+            }
+            if (filepath) {
+                for (var i = 0, l = this.playlist.length; i < l; i++) {
+                    if (this.playlist[i].path === filepath) {
+                        this.index = i;
+                        break;
+                    }
+                }
+                this.current = this.playlist[this.index].sound;
+                this.current.play();
+            } else if (this.current) {
+                this.current.play();
+            }
+            return this;
         },
 
         pause: function() {
-
+            this.current.pause();
+            return this;
         },
 
         stop: function() {

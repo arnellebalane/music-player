@@ -5,12 +5,9 @@
         root.Sound = func();
     }
 })(this, function() {
-    /*
-     * @param element - the Audio element to be wrapped
-     */
     function Sound(element, context) {
         this.paused = element.paused;
-        var sound = null;
+        var sound = context.createMediaElementSource(element);
 
         this.play = function() {
             this.paused = false;
@@ -28,10 +25,7 @@
             element.pause();
         };
 
-        this.hook = function(context, destination) {
-            if (!sound) {
-                sound = context.createMediaElementSource(element);
-            }
+        this.hook = function(destination) {
             sound.connect(destination);
         };
     }

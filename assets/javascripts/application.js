@@ -77,6 +77,10 @@
                     if (action === 'playlist-add') {
                         self.player.add(item.data('path'));
                     }
+                } else if (self.slider.mode === 'playlist') {
+                    if (action === 'play') {
+                        self.player.play(item.data('path'));
+                    }
                 }
             });
 
@@ -86,7 +90,7 @@
 
             this.visualizer.on('playercontrol', function(action) {
                 if (action === 'playlist') {
-                    self.slider.open().title('Current Playlist');
+                    self.slider.open('playlist').title('Current Playlist');
                     if (self.player.playlist.length) {
                         self.slider.list(
                             self.player.playlist, 
