@@ -8,11 +8,16 @@
     var fs = node_require('fs');
     var path = node_require('path');
 
+    var HOME = process.env.HOME 
+        || process.env.HOMEPATH 
+        || process.env.USERPROFILE;
+
+
     var FileExplorer = Stapes.subclass({
-        cwd: '/',
+        cwd: HOME,
         isroot: false,
         config: {
-            base_url: '/',
+            base_url: HOME,
             filters: [],
             hidden_files: false
         },

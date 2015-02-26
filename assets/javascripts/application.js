@@ -16,10 +16,7 @@
 
     var vPlayer = Stapes.subclass({
         constructor: function() {
-            this.explorer = new FileExplorer({
-                base_url: '/home/arnelle/Downloads',
-                filters: ['mp3'] 
-            });
+            this.explorer = new FileExplorer({ filters: ['mp3'] });
             this.slider = new Slider($('.slider-menu'));
             this.player = new Player();
             this.notifier = new Notifier(templates.notification);
