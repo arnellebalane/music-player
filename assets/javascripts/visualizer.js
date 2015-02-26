@@ -26,6 +26,7 @@
             var self = this;
 
             var container = $('<div class="visualization-container"></div>');
+            container.attr('data-action', 'toggle');
             for (var i = 0; i < config.slices_count; i++) {
                 var offset = i * slice_width;
 
@@ -45,7 +46,7 @@
             visualization.replaceWith(container);
 
 
-            element.on('click', '.player-control', function(e) {
+            element.on('click', '[data-action]', function(e) {
                 e.stopPropagation();
                 self.emit('playercontrol', $(this).data('action'));
             });

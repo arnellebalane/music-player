@@ -66,6 +66,10 @@
     background-image: url("../images/plus.svg");
 }
 
+.slider-menu__action[data-action="play"] {
+    background-image: url("../images/play.svg");
+}
+
 
 .slider-menu .component-header {
     padding-top: 40px;
