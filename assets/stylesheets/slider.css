@@ -70,6 +70,10 @@
     background-image: url("../images/play.svg");
 }
 
+.slider-menu__action[data-action="pause"] {
+    background-image: url("../images/pause.svg");
+}
+
 
 .slider-menu .component-header {
     padding-top: 40px;

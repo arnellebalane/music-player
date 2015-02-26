@@ -91,6 +91,10 @@
         actions: function(actions) {
             this.$customactions.html(actions);
             return this;
+        },
+
+        get: function(index) {
+            return this.$contents.children().eq(index);
         }
     });
 

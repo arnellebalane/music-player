@@ -65,26 +65,26 @@
         },
 
         play: function(filepath) {
-            if (this.current) {
-                this.current.stop();
+            if (this.current && this.current.path !== filepath) {
+                this.current.sound.stop();
             }
-            if (filepath) {
+            if (filepath && (!this.current || this.current.path !== filepath)) {
                 for (var i = 0, l = this.playlist.length; i < l; i++) {
                     if (this.playlist[i].path === filepath) {
                         this.index = i;
                         break;
                     }
                 }
-                this.current = this.playlist[this.index].sound;
-                this.current.play();
+                this.current = this.playlist[this.index];
+                this.current.sound.play();
             } else if (this.current) {
-                this.current.play();
+                this.current.sound.play();
             }
             return this;
         },
 
         pause: function() {
-            this.current.pause();
+            this.current.sound.pause();
             return this;
         },
 

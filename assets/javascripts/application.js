@@ -80,6 +80,21 @@
                 } else if (self.slider.mode === 'playlist') {
                     if (action === 'play') {
                         self.player.play(item.data('path'));
+                        item.siblings()
+                            .removeClass('menu-list__item--selected')
+                            .find('[data-action="pause"]')
+                            .attr('data-action', 'play')
+                            .data('action', 'play')
+                        item.addClass('menu-list__item--selected')
+                            .find('[data-action="play"]')
+                            .attr('data-action', 'pause')
+                            .data('action', 'pause');
+                    } else if (action === 'pause') {
+                        self.player.pause();
+                        item.removeClass('menu-list__item--selected')
+                            .find('[data-action="pause"]')
+                            .attr('data-action', 'play')
+                            .data('action', 'play');
                     }
                 }
             });
@@ -96,6 +111,13 @@
                             self.player.playlist, 
                             templates.playlist_item
                         );
+                        if (self.player.current) {
+                            self.slider.get(self.player.index)
+                                .addClass('menu-list__item--selected')
+                                .find('[data-action="play"]')
+                                .attr('data-action', 'pause')
+                                .data('action', 'pause');
+                        }
                     } else {
                         var template = Mustache.render(
                             templates.null_list_item, 

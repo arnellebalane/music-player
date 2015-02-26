@@ -36,9 +36,13 @@
 }
 
 .menu-list__item:hover,
-.menu-list__item.menu-list__item--selected {
+.menu-list__item.menu-list__item--selected:hover {
     color: #941242;
     background-color: white;
+}
+
+.menu-list__item.menu-list__item--selected {
+    background-color: #7d0f38;
 }
 
 
