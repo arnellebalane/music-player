@@ -69,15 +69,6 @@
                     }
                 } else if (self.slider.mode === 'playlist') {
                     self.player.play(item.data('path'));
-                        item.siblings()
-                            .removeClass('menu-list__item--selected')
-                            .find('[data-action="pause"]')
-                            .attr('data-action', 'play')
-                            .data('action', 'play')
-                        item.addClass('menu-list__item--selected')
-                            .find('[data-action="play"]')
-                            .attr('data-action', 'pause')
-                            .data('action', 'pause');
                 }
             });
 
@@ -91,27 +82,35 @@
                 } else if (self.slider.mode === 'playlist') {
                     if (action === 'play') {
                         self.player.play(item.data('path'));
-                        item.siblings()
-                            .removeClass('menu-list__item--selected')
-                            .find('[data-action="pause"]')
-                            .attr('data-action', 'play')
-                            .data('action', 'play')
-                        item.addClass('menu-list__item--selected')
-                            .find('[data-action="play"]')
-                            .attr('data-action', 'pause')
-                            .data('action', 'pause');
                     } else if (action === 'pause') {
                         self.player.pause();
-                        item.removeClass('menu-list__item--selected')
-                            .find('[data-action="pause"]')
-                            .attr('data-action', 'play')
-                            .data('action', 'play');
                     }
                 }
             });
 
             this.player.on('data', function(data) {
                 self.visualizer.visualize(data);
+            });
+
+            this.player.on('play', function(index) {
+                var item = self.slider.get(index);
+                item.siblings()
+                    .removeClass('menu-list__item--selected')
+                    .find('[data-action="pause"]')
+                    .attr('data-action', 'play')
+                    .data('action', 'play');
+                item.addClass('menu-list__item--selected')
+                    .find('[data-action="play"]')
+                    .attr('data-action', 'pause')
+                    .data('action', 'pause')
+            });
+
+            this.player.on('pause', function(index) {
+                self.slider.get(index)
+                    .removeClass('menu-list__item--selected')
+                    .find('[data-action="pause"]')
+                    .attr('data-action', 'play')
+                    .data('action', 'play');
             });
 
             this.visualizer.on('playercontrol', function(action) {

@@ -80,11 +80,13 @@
             } else if (this.current) {
                 this.current.sound.play();
             }
+            this.emit('play', this.index);
             return this;
         },
 
         pause: function() {
             this.current.sound.pause();
+            this.emit('pause', this.index);
             return this;
         },
 
