@@ -67,6 +67,17 @@
                     } else if (item.data('type') === 'mp3') {
                         self.player.add(item.data('path'));
                     }
+                } else if (self.slider.mode === 'playlist') {
+                    self.player.play(item.data('path'));
+                        item.siblings()
+                            .removeClass('menu-list__item--selected')
+                            .find('[data-action="pause"]')
+                            .attr('data-action', 'play')
+                            .data('action', 'play')
+                        item.addClass('menu-list__item--selected')
+                            .find('[data-action="play"]')
+                            .attr('data-action', 'pause')
+                            .data('action', 'pause');
                 }
             });
 
