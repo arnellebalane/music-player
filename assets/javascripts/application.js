@@ -105,7 +105,7 @@
                     .data('action', 'pause')
             });
 
-            this.player.on('pause', function(index) {
+            this.player.on('pause stop', function(index) {
                 self.slider.get(index)
                     .removeClass('menu-list__item--selected')
                     .find('[data-action="pause"]')
@@ -121,7 +121,8 @@
                             self.player.playlist, 
                             templates.playlist_item
                         );
-                        if (self.player.current) {
+                        if (self.player.current 
+                                && !self.player.current.sound.paused) {
                             self.slider.get(self.player.index)
                                 .addClass('menu-list__item--selected')
                                 .find('[data-action="play"]')
@@ -135,6 +136,8 @@
                         );
                         self.slider.empty().append(template);
                     }
+                } else {
+                    self.player[action]();
                 }
             });
 

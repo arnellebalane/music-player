@@ -97,15 +97,25 @@
         },
 
         stop: function() {
-            
+            this.current.sound.stop();
+            this.emit('stop', this.index);
+            return this;
         },
 
         previous: function() {
-
+            this.index = (!this.index ? this.playlist.length  : this.index) - 1;
+            if (this.playlist.length) {
+                this.play(this.playlist[this.index].path);
+            }
+            return this;
         },
 
         next: function() {
-
+            this.index = ++this.index % this.playlist.length;
+            if (this.playlist.length) {
+                this.play(this.playlist[this.index].path);
+            }
+            return this;
         }
     });
 
