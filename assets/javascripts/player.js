@@ -69,6 +69,7 @@
                 this.current.sound.stop();
             }
             if (filepath && (!this.current || this.current.path !== filepath)) {
+                var self = this;
                 for (var i = 0, l = this.playlist.length; i < l; i++) {
                     if (this.playlist[i].path === filepath) {
                         this.index = i;
@@ -77,6 +78,11 @@
                 }
                 this.current = this.playlist[this.index];
                 this.current.sound.play();
+                this.current.sound.off('end');
+                this.current.sound.on('end', function() {
+                    self.index = ++self.index % self.playlist.length;
+                    self.play(self.playlist[self.index].path);
+                });
             } else if (this.current) {
                 this.current.sound.play();
             }
@@ -91,7 +97,7 @@
         },
 
         stop: function() {
-
+            
         },
 
         previous: function() {

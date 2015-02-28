@@ -1,34 +1,43 @@
 (function(root, func) {
     if (typeof define === 'function' && define.amd) {
-        define([], func);
+        define(['stapes'], func);
     } else {
-        root.Sound = func();
+        root.Sound = func(root.Stapes);
     }
-})(this, function() {
-    function Sound(element, context) {
-        this.paused = element.paused;
-        var sound = context.createMediaElementSource(element);
+})(this, function(Stapes) {
+    var Sound = Stapes.subclass({
+        constructor: function(element, context) {
+            this.element = element;
+            this.paused = element.paused;
+            this.sound = context.createMediaElementSource(element);
+            var self = this;
 
-        this.play = function() {
+            element.onended = function() {
+                self.emit('end');
+            };
+        },
+
+        play: function() {
             this.paused = false;
-            element.play();
-        };
+            this.element.play();
+        },
 
-        this.pause = function() {
+        pause: function() {
             this.paused = true;
-            element.pause();
-        };
+            this.element.pause();
+        },
 
-        this.stop = function() {
+        stop: function() {
             this.paused = true;
-            element.currentTime = 0;
-            element.pause();
-        };
+            this.element.currentTime = 0;
+            this.element.pause();
+        },
 
-        this.hook = function(destination) {
-            sound.connect(destination);
-        };
-    }
+        hook: function(destination) {
+            this.sound.connect(destination);
+        }
+    });
+
 
     return Sound;
 });
