@@ -11,6 +11,13 @@
         no_signal: 128
     };
 
+    var keycodes = {
+        37: 'previous',
+        39: 'next',
+        80: 'playlist',
+        83: 'stop'
+    };
+
 
     var Visualizer = Stapes.subclass({
         constructor: function(element, config) {
@@ -49,6 +56,13 @@
             element.on('click', '[data-action]', function(e) {
                 e.stopPropagation();
                 self.emit('playercontrol', $(this).data('action'));
+            });
+
+
+            $(document).on('keydown', function(e) {
+                if (keycodes.hasOwnProperty(e.keyCode)) {
+                    self.emit('playercontrol', keycodes[e.keyCode]);
+                }
             });
 
 
