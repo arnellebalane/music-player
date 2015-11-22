@@ -1,0 +1,24 @@
+{
+  "name": "vplayer",
+  "description": "music player built with web technologies",
+  "main": "index.js",
+  "authors": [
+    "Arnelle Balane <arnellebalane@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "vplayer",
+    "music",
+    "player"
+  ],
+  "homepage": "https://github.com/arnellebalane/vplayer",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
