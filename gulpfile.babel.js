@@ -1,52 +1,49 @@
 import gulp from 'gulp';
 import plumber from 'gulp-plumber';
-import jade from 'gulp-jade';
-import stylus from 'gulp-stylus';
+import sass from 'gulp-sass';
 import autoprefixer from 'gulp-autoprefixer';
 import babel from 'gulp-babel';
 
 
-gulp.task('templates', () => {
-    return gulp.src('src/**/*.jade', { base: 'src' })
+const PATHS = {
+    stylesheets: 'source/**/*.scss',
+    javascripts: 'source/**/*.js',
+    templates: 'source/**/*.html',
+    images: 'source/images/**/*'
+};
+const BUILD_DIRECTORY = 'distribution';
+
+
+gulp.task('buildcss', () => {
+    return gulp.src(PATHS.stylesheets)
         .pipe(plumber())
-        .pipe(jade())
-        .pipe(gulp.dest('build'));
+        .pipe(sass())
+        .pipe(autoprefixer())
+        .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 
 
-gulp.task('stylesheets', () => {
-    return gulp.src('src/**/*.styl', { base: 'src' })
-        .pipe(plumber())
-        .pipe(stylus())
-        .pipe(autoprefixer({ browsers: ['last 2 versions'] }))
-        .pipe(gulp.dest('build'));
-});
-
-
-gulp.task('javascripts', () => {
-    return gulp.src('src/**/*.js', { base: 'src' })
+gulp.task('buildjs', () => {
+    return gulp.src(PATHS.javascripts)
         .pipe(plumber())
         .pipe(babel())
-        .pipe(gulp.dest('build'));
+        .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 
 
-gulp.task('copy', () => {
-    return gulp.src([
-            'src/**/images/**/*',
-            'src/**/fonts/**/*'
-        ], { base: 'src' })
-        .pipe(gulp.dest('build'));
+gulp.task('copystatic', () => {
+    return gulp.src([PATHS.templates, PATHS.images])
+        .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 
 
-gulp.task('build', ['templates', 'stylesheets', 'javascripts', 'copy']);
+gulp.task('build', ['buildcss', 'buildjs', 'copystatic']);
 
 
 gulp.task('watch', () => {
-    gulp.watch('src/**/*.jade', ['templates']);
-    gulp.watch('src/**/*.styl', ['stylesheets']);
-    gulp.watch('src/**/*.js', ['javascripts']);
+    gulp.watch(PATHS.stylesheets, ['buildcss']);
+    gulp.watch(PATHS.javascripts, ['buildjs']);
+    gulp.watch([PATHS.templates, PATHS.images], ['copystatic']);
 });
 
 
