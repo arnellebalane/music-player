@@ -84,8 +84,6 @@ drawPlayerAudioDataLines();
 
 /** Draw audio data lines based on actual audio data from analyser node. **/
 function drawPlayerAudioDataLines() {
-    requestAnimationFrame(drawPlayerAudioDataLines);
-
     if (audio.paused) {
         audioData = audioDataBackup;
     } else {
@@ -108,6 +106,8 @@ function drawPlayerAudioDataLines() {
         canvasContext.lineTo(line.end.x, line.end.y);
         canvasContext.stroke();
     }
+
+    setTimeout(drawPlayerAudioDataLines, 10);
 }
 
 
