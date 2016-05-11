@@ -100,8 +100,8 @@ function getAudioFileMetadata(audioFile) {
     return new Promise((resolve, reject) => {
         id3({ file: audioFile, type: id3.OPEN_LOCAL }, (error, data) => {
             let audioFileData = {
-                title: data.title,
-                artist: data.artist,
+                title: data.title || audioFile.split(path.sep).pop(),
+                artist: data.artist || 'Unknown Artist',
                 path: audioFile
             };
             resolve(audioFileData);
