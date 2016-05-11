@@ -67,6 +67,7 @@ sourceNode.connect(analyserNode);
 analyserNode.connect(audioContext.destination);
 
 let audioData = new Uint8Array(analyserNode.frequencyBinCount);
+let audioDataBackup = audioData;
 drawPlayerAudioDataLines();
 
 
@@ -77,7 +78,12 @@ drawPlayerAudioDataLines();
 function drawPlayerAudioDataLines() {
     requestAnimationFrame(drawPlayerAudioDataLines);
 
-    analyserNode.getByteTimeDomainData(audioData);
+    if (audio.paused) {
+        audioData = audioDataBackup;
+    } else {
+        analyserNode.getByteTimeDomainData(audioData);
+        audioDataBackup = audioData;
+    }
     let interval = Math.floor(audioData.length / LINES_COUNT);
 
     canvasContext.clearRect(0, 0, canvas.width, canvas.height);
