@@ -1,3 +1,6 @@
+import electron from 'electron';
+
+
 let container = document.querySelector('.visualization');
 let containerRect = container.getBoundingClientRect();
 
@@ -14,22 +17,31 @@ const CENTER_OFFSET = container.querySelector('.song-thumbnail')
 
 
 
-var audioFiles = [
-    'file:///home/arnelle/Downloads/sample-01.mp3',
-    'file:///home/arnelle/Downloads/sample-02.mp3',
-    'file:///home/arnelle/Downloads/sample-03.mp3'
-];
-var audioFilesIndex = 0;
-
-var controls = {
+let controls = {
     play: document.querySelector('.control[data-action="play"]'),
     pause: document.querySelector('.control[data-action="pause"]'),
     previous: document.querySelector('.control[data-action="previous"]'),
     next: document.querySelector('.control[data-action="next"]')
 };
+let searchPaths = [
+    '/Users/arnelle/Desktop',
+    '/Users/arnelle/Downloads/dummies'
+];
+
+let play = (index) => electron.ipcRenderer.send('play', index);
+let previous = () => electron.ipcRenderer.send('previous');
+let next = () => electron.ipcRenderer.send('next');
+
+electron.ipcRenderer.send('search-audio-files', searchPaths);
+electron.ipcRenderer.on('search-audio-files', (e) => play(0));
+
+electron.ipcRenderer.on('play', (e, audioData) => {
+    audio.src = audioData;
+});
+
+
 
 let audio = new Audio();
-audio.src = audioFiles[audioFilesIndex];
 audio.autoplay = true;
 
 audio.addEventListener('play', function() {
@@ -42,21 +54,12 @@ audio.addEventListener('pause', function() {
     controls.pause.classList.add('hidden');
 });
 
+audio.addEventListener('ended', next);
 
 controls.play.addEventListener('click', audio.play.bind(audio));
 controls.pause.addEventListener('click', audio.pause.bind(audio));
-
-controls.previous.addEventListener('click', function() {
-    audioFilesIndex = audioFilesIndex === 0
-        ? audioFiles.length - 1 : audioFilesIndex - 1;
-    audio.src = audioFiles[audioFilesIndex];
-});
-
-controls.next.addEventListener('click', function() {
-    audioFilesIndex = audioFilesIndex === audioFiles.length - 1
-        ? 0 : audioFilesIndex + 1;
-    audio.src = audioFiles[audioFilesIndex];
-});
+controls.previous.addEventListener('click', previous);
+controls.next.addEventListener('click', next);
 
 
 
