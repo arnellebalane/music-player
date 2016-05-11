@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import electron from 'electron';
+import id3 from 'id3js';
 import 'babel-polyfill';
 
 
@@ -40,8 +41,8 @@ app.on('windows-all-closed', () => {
 
 
 
-var audioFiles = [];
-var playingIndex = 0;
+let audioFiles = [];
+let playingIndex = 0;
 
 electron.ipcMain.on('search-audio-files', (e, searchDirectories) => {
     audioFiles = new Set();
@@ -63,7 +64,8 @@ electron.ipcMain.on('search-audio-files', (e, searchDirectories) => {
 electron.ipcMain.on('play', (e, index) => {
     if (audioFiles.length) {
         playingIndex = index;
-        e.sender.send('play', audioFiles[playingIndex]);
+        getAudioFileMetadata(audioFiles[playingIndex])
+            .then((data) => e.sender.send('play', data));
     } else {
         e.sender.send('error', 'No audio files loaded yet.');
     }
@@ -73,7 +75,8 @@ electron.ipcMain.on('previous', (e) => {
     if (audioFiles.length) {
         playingIndex = playingIndex === 0
             ? audioFiles.length - 1 : playingIndex - 1;
-        e.sender.send('play', audioFiles[playingIndex]);
+        getAudioFileMetadata(audioFiles[playingIndex])
+            .then((data) => e.sender.send('play', data));
     } else {
         e.sender.send('error', 'No audio files loaded yet.');
     }
@@ -83,8 +86,24 @@ electron.ipcMain.on('next', (e) => {
     if (audioFiles.length) {
         playingIndex = playingIndex === audioFiles.length - 1
             ? 0 : playingIndex + 1;
-        e.sender.send('play', audioFiles[playingIndex]);
+        getAudioFileMetadata(audioFiles[playingIndex])
+            .then((data) => e.sender.send('play', data));
     } else {
         e.sender.send('error', 'No audio files loaded yet.');
     }
 });
+
+
+
+function getAudioFileMetadata(audioFile) {
+    return new Promise((resolve, reject) => {
+        id3({ file: audioFile, type: id3.OPEN_LOCAL }, (error, data) => {
+            let audioFileData = {
+                title: data.title,
+                artist: data.artist,
+                path: audioFile
+            };
+            resolve(audioFileData);
+        });
+    });
+}

@@ -23,9 +23,12 @@ let controls = {
     previous: document.querySelector('.control[data-action="previous"]'),
     next: document.querySelector('.control[data-action="next"]')
 };
+let song = {
+    title: document.querySelector('.song-title'),
+    artist: document.querySelector('.song-artist')
+};
 let searchPaths = [
-    '/Users/arnelle/Desktop',
-    '/Users/arnelle/Downloads/dummies'
+    '/Users/arnelle/Music'
 ];
 
 let play = (index) => electron.ipcRenderer.send('play', index);
@@ -36,7 +39,9 @@ electron.ipcRenderer.send('search-audio-files', searchPaths);
 electron.ipcRenderer.on('search-audio-files', (e) => play(0));
 
 electron.ipcRenderer.on('play', (e, audioData) => {
-    audio.src = audioData;
+    song.title.textContent = audioData.title;
+    song.artist.textContent = audioData.artist;
+    audio.src = audioData.path;
 });
 
 
