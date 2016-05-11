@@ -92,7 +92,7 @@ function drawPlayerAudioDataLines() {
     canvasContext.strokeStyle = getPlayerMainColor();
 
     for (let i = 0; i < LINES_COUNT; i++) {
-        let data = (audioData[i * interval] - 128) / 4;
+        let data = ((audioData[i * interval] || 128) - 128) / 4;
         let line = getPlayerCoordinatesForLine(i, data);
 
         canvasContext.beginPath();
