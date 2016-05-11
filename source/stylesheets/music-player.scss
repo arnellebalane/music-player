@@ -151,6 +151,15 @@ button {
 }
 
 
+.seekbar-click-region {
+    stroke: black;
+    stroke-width: 7;
+    fill: none;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
 .time-progress {
     @include center-content;
     width: 20vw;

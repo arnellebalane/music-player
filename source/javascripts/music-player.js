@@ -32,6 +32,7 @@ let song = {
     title: document.querySelector('.song-title'),
     artist: document.querySelector('.song-artist')
 };
+let seekbar = document.querySelector('.seekbar-click-region');
 let time = document.querySelector('.time-progress');
 
 let searchPaths = [
@@ -81,6 +82,18 @@ controls.play.addEventListener('click', audio.play.bind(audio));
 controls.pause.addEventListener('click', audio.pause.bind(audio));
 controls.previous.addEventListener('click', previous);
 controls.next.addEventListener('click', next);
+
+seekbar.addEventListener('click', (e) => {
+    let canvasRect = canvas.getBoundingClientRect();
+    let absoluteOrigin = {
+        x: origin().x + canvasRect.left,
+        y: origin().y + canvasRect.top
+    };
+    let clickedPoint = { x: e.pageX, y: e.pageY };
+    let clickedAngle = getAngleBetween(absoluteOrigin, clickedPoint);
+    let seekedPosition = audio.duration * (clickedAngle / 360);
+    audio.currentTime = seekedPosition;
+});
 
 
 
@@ -155,6 +168,18 @@ function normalizeCoordinates(point) {
     point.x = point.x + origin().x;
     point.y = point.y + origin().y;
     return point;
+}
+
+
+/** Get the angle between two points. **/
+function getAngleBetween(origin, point) {
+    var dx = point.x - origin.x;
+    var dy = point.y - origin.y;
+    var angle = rad2deg(Math.atan(dy / dx));
+    if (dx >= 0) {
+        return angle + 90;
+    }
+    return angle + 270;
 }
 
 
