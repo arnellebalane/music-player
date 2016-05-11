@@ -98,20 +98,15 @@ const ipcMain = electron.ipcMain;
 let audioFiles = [];
 let playingIndex = 0;
 
-ipcMain.on('search-audio-files', (e, searchDirectories) => {
+ipcMain.on('search-audio-files', (e, audioRootDirectory) => {
     audioFiles = new Set();
-    Promise.all(searchDirectories.map((searchDirectory) => {
-        return new Promise((resolve, reject) => {
-            fs.readdir(searchDirectory, (error, files) => {
-                files.filter((file) => /\.mp3$/.test(file))
-                    .forEach((file) =>
-                        audioFiles.add(path.join(searchDirectory, file)));
-                resolve(searchDirectory);
-            });
-        });
-    })).then(function() {
+
+    fs.readdir(audioRootDirectory, (error, files) => {
+        files.filter((file) => /\.mp3$/.test(file))
+            .forEach((file) =>
+                audioFiles.add(path.join(audioRootDirectory, file)));
         audioFiles = Array.from(audioFiles);
-        e.sender.send('search-audio-files');
+        e.sender.send('audio-files-found');
     });
 });
 

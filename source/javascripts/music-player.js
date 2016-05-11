@@ -35,16 +35,14 @@ let song = {
 let seekbar = document.querySelector('.seekbar-click-region');
 let time = document.querySelector('.time-progress');
 
-let searchPaths = [
-    '/Users/arnelle/Music'
-];
+let audioRootDirectory = '/Users/arnelle/Music';
 
 let play = (index) => electron.ipcRenderer.send('play', index);
 let previous = () => electron.ipcRenderer.send('previous');
 let next = () => electron.ipcRenderer.send('next');
 
-electron.ipcRenderer.send('search-audio-files', searchPaths);
-electron.ipcRenderer.on('search-audio-files', (e) => play(0));
+electron.ipcRenderer.send('search-audio-files', audioRootDirectory);
+electron.ipcRenderer.on('audio-files-found', (e) => play(0));
 
 electron.ipcRenderer.on('play', (e, audioData) => {
     song.title.textContent = audioData.title;
