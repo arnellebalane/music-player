@@ -4,6 +4,11 @@ import electron from 'electron';
 let container = document.querySelector('.visualization');
 let containerRect = container.getBoundingClientRect();
 
+let path = container.querySelector('svg .seekbar-progress');
+let totalPathLength = path.getTotalLength();
+path.setAttribute('stroke-dasharray', `${totalPathLength} ${totalPathLength}`);
+path.setAttribute('stroke-dashoffset', -totalPathLength + 1);
+
 let canvas = container.querySelector('canvas');
 let canvasContext = canvas.getContext('2d');
 canvas.width = containerRect.width;
@@ -60,6 +65,12 @@ audio.addEventListener('pause', function() {
 });
 
 audio.addEventListener('ended', next);
+
+audio.addEventListener('timeupdate', () => {
+    let timeProgress = (audio.currentTime / audio.duration) || 0;
+    let pathProgress = path.getTotalLength() * timeProgress;
+    path.setAttribute('stroke-dashoffset', pathProgress - path.getTotalLength());
+});
 
 controls.play.addEventListener('click', audio.play.bind(audio));
 controls.pause.addEventListener('click', audio.pause.bind(audio));
