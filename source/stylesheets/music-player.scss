@@ -47,8 +47,8 @@ button {
 /** Song information styles. **/
 
 .song-thumbnail {
-    width: 50vw;
-    height: 50vw;
+    width: 45vw;
+    height: 45vw;
     border-radius: 50%;
     background: var(--player-color-main) center center;
     background-size: cover;
@@ -85,9 +85,9 @@ button {
 
 .visualization {
     @include center-content;
-    width: 80vw;
-    height: 80vw;
-    margin: 5vh 0;
+    width: 90vw;
+    height: 90vw;
+    margin: 2vh 0;
     position: relative;
 }
 

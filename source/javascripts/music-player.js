@@ -14,11 +14,32 @@ const CENTER_OFFSET = container.querySelector('.song-thumbnail')
 
 
 
-
+var controls = {
+    play: document.querySelector('.control[data-action="play"]'),
+    pause: document.querySelector('.control[data-action="pause"]'),
+    previous: document.querySelector('.control[data-action="previous"]'),
+    next: document.querySelector('.control[data-action="next"]')
+};
 
 let audio = new Audio();
 audio.src = 'file:///Users/arnelle/Desktop/sample-music.mp3';
 audio.autoplay = true;
+
+audio.addEventListener('play', function() {
+    controls.play.classList.add('hidden');
+    controls.pause.classList.remove('hidden');
+});
+
+audio.addEventListener('pause', function() {
+    controls.play.classList.remove('hidden');
+    controls.pause.classList.add('hidden');
+});
+
+
+controls.play.addEventListener('click', audio.play.bind(audio));
+controls.pause.addEventListener('click', audio.pause.bind(audio));
+
+
 
 let audioContext = new window.AudioContext();
 let sourceNode = audioContext.createMediaElementSource(audio);
@@ -27,12 +48,15 @@ sourceNode.connect(analyserNode);
 analyserNode.connect(audioContext.destination);
 
 let audioData = new Uint8Array(analyserNode.frequencyBinCount);
+drawPlayerAudioDataLines();
 
-drawPlayerLines();
 
 
-function drawPlayerLines() {
-    requestAnimationFrame(drawPlayerLines);
+
+
+/** Draw audio data lines based on actual audio data from analyser node. **/
+function drawPlayerAudioDataLines() {
+    requestAnimationFrame(drawPlayerAudioDataLines);
 
     analyserNode.getByteTimeDomainData(audioData);
     let interval = Math.floor(audioData.length / LINES_COUNT);
@@ -52,9 +76,6 @@ function drawPlayerLines() {
         canvasContext.stroke();
     }
 }
-
-
-
 
 
 /**
