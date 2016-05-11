@@ -46,6 +46,19 @@ button {
 
 /** Song information styles. **/
 
+.song-title,
+.song-artist {
+    max-width: 80vw;
+    @include ellipsis;
+}
+
+
+.song-artist {
+    margin-top: 0.5vh;
+    color: #777;
+}
+
+
 .song-thumbnail {
     width: 45vw;
     height: 45vw;
@@ -93,7 +106,7 @@ button {
     @include center-content;
     width: 90vw;
     height: 90vw;
-    margin: 2vh 0;
+    margin: 1.5vh 0;
     position: relative;
 }
 
@@ -134,5 +147,5 @@ button {
 
 
 .seekbar-progress {
-    stroke-width: 2;
+    stroke-width: 1;
 }
