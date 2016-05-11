@@ -16,10 +16,8 @@ html {
 
 
 body {
-    display: flex;
+    @include center-content();
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     height: 100vh;
 
     font-family: "Quicksand", sans-serif;
@@ -47,11 +45,6 @@ button {
 
 /** Song information styles. **/
 
-.song-artist {
-    margin-bottom: 15vh;
-}
-
-
 .song-thumbnail {
     width: 50vw;
     height: 50vw;
@@ -65,7 +58,6 @@ button {
 /** Player controls styles. **/
 
 .controls {
-    margin-top: 15vh;
     font-size: 0;
 }
 
@@ -94,4 +86,24 @@ button {
 .control:hover path,
 .control:focus path {
     fill: #fff;
+}
+
+
+
+/** Visualization styles. **/
+
+.visualization {
+    @include center-content;
+    width: 80vw;
+    height: 80vw;
+    margin: 5vh 0;
+    position: relative;
+}
+
+
+.visualization canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
 }
