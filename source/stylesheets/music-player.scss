@@ -74,9 +74,17 @@ button {
     outline: none;
 }
 
+.control:hover {
+    background-color: var(--player-color-main);
+}
+
 
 .control path {
     fill: var(--player-color-main);
+}
+
+.control:hover path {
+    fill: #fff;
 }
 
 
