@@ -23,6 +23,7 @@ body {
     font-family: "Quicksand", sans-serif;
     @include font-smoothing();
     color: #333;
+    user-select: none;
 
     --player-color-main: #e91e63;
 }

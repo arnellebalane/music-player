@@ -8,7 +8,7 @@ const BrowserWindow = electron.BrowserWindow;
 electron.crashReporter.start();
 
 
-var mainWindow = null;
+let mainWindow = null;
 
 
 app.on('ready', () => {
