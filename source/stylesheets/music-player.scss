@@ -74,19 +74,9 @@ button {
     outline: none;
 }
 
-.control:hover,
-.control:focus {
-    background-color: var(--player-color-main);
-}
-
 
 .control path {
     fill: var(--player-color-main);
-}
-
-.control:hover path,
-.control:focus path {
-    fill: #fff;
 }
 
 

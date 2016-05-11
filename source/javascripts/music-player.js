@@ -2,7 +2,7 @@ let container = document.querySelector('.visualization');
 let containerRect = container.getBoundingClientRect();
 
 let canvas = container.querySelector('canvas');
-let context = canvas.getContext('2d');
+let canvasContext = canvas.getContext('2d');
 canvas.width = containerRect.width;
 canvas.height = containerRect.height;
 
@@ -10,20 +10,47 @@ const LINES_COUNT = 180;
 const ANGLE_INTERVAL = 360 / LINES_COUNT;
 const ANGLE_ROTATION = -90;
 const CENTER_OFFSET = container.querySelector('.song-thumbnail')
-    .getBoundingClientRect().width / 2 + 5;
+    .getBoundingClientRect().width / 2 + 40;
 
 
-context.lineWidth = 3;
-context.lineCap = 'round';
-context.strokeStyle = getPlayerMainColor();
 
-for (let i = 0; i < LINES_COUNT; i++) {
-    var line = getPlayerCoordinatesForLine(i, 10);
 
-    context.beginPath();
-    context.moveTo(line.start.x, line.start.y);
-    context.lineTo(line.end.x, line.end.y);
-    context.stroke();
+
+let audio = new Audio();
+audio.src = 'file:///Users/arnelle/Desktop/sample-music.mp3';
+audio.autoplay = true;
+
+let audioContext = new window.AudioContext();
+let sourceNode = audioContext.createMediaElementSource(audio);
+let analyserNode = audioContext.createAnalyser();
+sourceNode.connect(analyserNode);
+analyserNode.connect(audioContext.destination);
+
+let audioData = new Uint8Array(analyserNode.frequencyBinCount);
+
+drawPlayerLines();
+
+
+function drawPlayerLines() {
+    requestAnimationFrame(drawPlayerLines);
+
+    analyserNode.getByteTimeDomainData(audioData);
+    let interval = Math.floor(audioData.length / LINES_COUNT);
+
+    canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+    canvasContext.lineWidth = 2;
+    canvasContext.lineCap = 'round';
+    canvasContext.strokeStyle = getPlayerMainColor();
+
+    for (let i = 0; i < LINES_COUNT; i++) {
+        let data = (audioData[i * interval] - 128) / 4;
+        let line = getPlayerCoordinatesForLine(i, data);
+
+        canvasContext.beginPath();
+        canvasContext.moveTo(line.start.x, line.start.y);
+        canvasContext.lineTo(line.end.x, line.end.y);
+        canvasContext.stroke();
+    }
 }
 
 
@@ -35,9 +62,9 @@ for (let i = 0; i < LINES_COUNT; i++) {
  *  with the appropriate adjustments and normalizations applied.
  **/
 function getPlayerCoordinatesForLine(i, length) {
-    var angle = i * ANGLE_INTERVAL + ANGLE_ROTATION;
-    var start = getPointFromOriginAt(CENTER_OFFSET, deg2rad(angle));
-    var end = getPointFromOriginAt(length + CENTER_OFFSET, deg2rad(angle));
+    let angle = i * ANGLE_INTERVAL + ANGLE_ROTATION;
+    let start = getPointFromOriginAt(CENTER_OFFSET, deg2rad(angle));
+    let end = getPointFromOriginAt(length + CENTER_OFFSET, deg2rad(angle));
 
     return {
         start: normalizeCoordinates(start),
