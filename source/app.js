@@ -65,7 +65,7 @@ electron.ipcMain.on('play', (e, index) => {
         playingIndex = index;
         e.sender.send('play', audioFiles[playingIndex]);
     } else {
-        e.sender.send('error', 'No audio files found.');
+        e.sender.send('error', 'No audio files loaded yet.');
     }
 });
 
@@ -75,7 +75,7 @@ electron.ipcMain.on('previous', (e) => {
             ? audioFiles.length - 1 : playingIndex - 1;
         e.sender.send('play', audioFiles[playingIndex]);
     } else {
-        e.sender.send('error', 'No audio files found.');
+        e.sender.send('error', 'No audio files loaded yet.');
     }
 });
 
@@ -85,6 +85,6 @@ electron.ipcMain.on('next', (e) => {
             ? 0 : playingIndex + 1;
         e.sender.send('play', audioFiles[playingIndex]);
     } else {
-        e.sender.send('error', 'No audio files found.');
+        e.sender.send('error', 'No audio files loaded yet.');
     }
 });
