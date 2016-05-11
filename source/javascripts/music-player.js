@@ -15,9 +15,9 @@ const CENTER_OFFSET = container.querySelector('.song-thumbnail')
 
 
 var audioFiles = [
-    'file:///Users/arnelle/Desktop/sample-01.mp3',
-    'file:///Users/arnelle/Desktop/sample-02.mp3',
-    'file:///Users/arnelle/Desktop/sample-03.mp3'
+    'file:///home/arnelle/Downloads/sample-01.mp3',
+    'file:///home/arnelle/Downloads/sample-02.mp3',
+    'file:///home/arnelle/Downloads/sample-03.mp3'
 ];
 var audioFilesIndex = 0;
 

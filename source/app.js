@@ -5,7 +5,11 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 
-electron.crashReporter.start();
+electron.crashReporter.start({
+    projectName: 'Music Player',
+    companyName: 'Arnelle Balane',
+    submitURL: 'https://arnellebalane.com/crashreport'
+});
 
 
 let mainWindow = null;
