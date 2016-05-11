@@ -46,7 +46,7 @@ gulp.task('copystatic', () => {
 });
 
 
-gulp.task('build', ['buildcss', 'buildjs', 'copystatic']);
+gulp.task('build', ['buildcss', 'buildjs', 'buildhtml', 'copystatic']);
 
 
 gulp.task('watch', () => {
