@@ -129,7 +129,7 @@ button {
 
 
 
-/** Seekbar styles. **/
+/** Playback progress styles. **/
 
 .seekbar-track,
 .seekbar-progress {
@@ -148,4 +148,18 @@ button {
 
 .seekbar-progress {
     stroke-width: 1;
+}
+
+
+.time-progress {
+    @include center-content;
+    width: 20vw;
+    height: 20vw;
+    position: absolute;
+    top: calc(50% - 10vw);
+    left: calc(50% - 10vw);
+    font-family: monospace;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--player-color-main);
 }

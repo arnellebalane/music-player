@@ -32,6 +32,8 @@ let song = {
     title: document.querySelector('.song-title'),
     artist: document.querySelector('.song-artist')
 };
+let time = document.querySelector('.time-progress');
+
 let searchPaths = [
     '/Users/arnelle/Music'
 ];
@@ -69,7 +71,10 @@ audio.addEventListener('ended', next);
 audio.addEventListener('timeupdate', () => {
     let timeProgress = (audio.currentTime / audio.duration) || 0;
     let pathProgress = path.getTotalLength() * timeProgress;
-    path.setAttribute('stroke-dashoffset', pathProgress - path.getTotalLength());
+    let dashOffset = pathProgress - path.getTotalLength();
+    path.setAttribute('stroke-dashoffset', dashOffset);
+
+    time.textContent = formatTime((timeProgress * audio.duration) || 0);
 });
 
 controls.play.addEventListener('click', audio.play.bind(audio));
@@ -175,4 +180,18 @@ function rad2deg(angle) {
 function getPlayerMainColor() {
     let bodyStyles = window.getComputedStyle(document.body);
     return bodyStyles.getPropertyValue('--player-color-main');
+}
+
+
+/** Format time into `mm:ss` format. **/
+function formatTime(time) {
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+    return `${padLeft(minutes)}:${padLeft(seconds)}`;
+}
+
+
+/** Pad the left of given number with `0` if it is less than ten. **/
+function padLeft(number) {
+    return number < 10 ? '0' + number : number;
 }
