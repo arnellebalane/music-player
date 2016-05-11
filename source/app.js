@@ -40,12 +40,65 @@ app.on('windows-all-closed', () => {
 
 
 
+/** Setup custom application menu. **/
 
+const Menu = electron.Menu;
+
+let menuTemplate = [
+    {
+        label: 'Settings',
+        submenu: [
+            {
+                label: 'Change Root Audio Directory',
+                accelerator: 'CmdOrCtrl+Shift+D',
+                click: (item, focusedWindow) => {
+                    console.log(item, focusedWindow);
+                }
+            },
+            {
+                label: 'Change Player Color',
+                accelerator: 'CmdOrCtrl+Shift+C',
+                click: (item, focusedWindow) => {
+                    console.log(item, focusedWindow);
+                }
+            }
+        ]
+    }
+];
+
+if (process.platform === 'darwin') {
+    let appName = electron.app.getName();
+    menuTemplate.unshift({
+        label: appName,
+        submenu: [
+            {
+                label: `About ${appName}`,
+                role: 'about'
+            },
+            {
+                label: 'Quit',
+                accelerator: 'Command+Q',
+                click: () => app.quit()
+            }
+        ]
+    });
+}
+
+app.on('ready', () => {
+    let menu = Menu.buildFromTemplate(menuTemplate);
+    Menu.setApplicationMenu(menu);
+});
+
+
+
+/** Section that handles interaction with the renderer process. **/
+
+const ipcMain = electron.ipcMain;
 
 let audioFiles = [];
 let playingIndex = 0;
 
-electron.ipcMain.on('search-audio-files', (e, searchDirectories) => {
+ipcMain.on('search-audio-files', (e, searchDirectories) => {
     audioFiles = new Set();
     Promise.all(searchDirectories.map((searchDirectory) => {
         return new Promise((resolve, reject) => {
@@ -62,7 +115,7 @@ electron.ipcMain.on('search-audio-files', (e, searchDirectories) => {
     });
 });
 
-electron.ipcMain.on('play', (e, index) => {
+ipcMain.on('play', (e, index) => {
     if (audioFiles.length) {
         playingIndex = index;
         getAudioFileMetadata(audioFiles[playingIndex])
@@ -72,7 +125,7 @@ electron.ipcMain.on('play', (e, index) => {
     }
 });
 
-electron.ipcMain.on('previous', (e) => {
+ipcMain.on('previous', (e) => {
     if (audioFiles.length) {
         playingIndex = playingIndex === 0
             ? audioFiles.length - 1 : playingIndex - 1;
@@ -83,7 +136,7 @@ electron.ipcMain.on('previous', (e) => {
     }
 });
 
-electron.ipcMain.on('next', (e) => {
+ipcMain.on('next', (e) => {
     if (audioFiles.length) {
         playingIndex = playingIndex === audioFiles.length - 1
             ? 0 : playingIndex + 1;
