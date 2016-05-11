@@ -20,7 +20,7 @@ body {
     flex-direction: column;
     height: 100vh;
 
-    font-family: "Quicksand", sans-serif;
+    font-family: "Quicksand", "QuicksandRegular", sans-serif;
     @include font-smoothing();
     color: #333;
     user-select: none;

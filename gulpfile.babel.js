@@ -10,7 +10,10 @@ const PATHS = {
     stylesheets: 'source/**/*.scss',
     javascripts: 'source/**/*.js',
     templates: 'source/**/*.html',
-    images: 'source/**/*.{svg,png,jpeg,jpg}'
+    static: [
+        'source/**/*.{svg,png,jpeg,jpg}',
+        'source/**/*.{woff,woff2,otf,ttf}'
+    ]
 };
 const BUILD_DIRECTORY = 'distribution';
 
@@ -41,7 +44,7 @@ gulp.task('buildhtml', () => {
 
 
 gulp.task('copystatic', () => {
-    return gulp.src(PATHS.images)
+    return gulp.src(PATHS.static)
         .pipe(gulp.dest(BUILD_DIRECTORY));
 });
 
@@ -53,7 +56,7 @@ gulp.task('watch', () => {
     gulp.watch(PATHS.stylesheets, ['buildcss']);
     gulp.watch(PATHS.javascripts, ['buildjs']);
     gulp.watch(PATHS.templates, ['buildhtml']);
-    gulp.watch(PATHS.images, ['copystatic']);
+    gulp.watch(PATHS.static, ['copystatic']);
 });
 
 
