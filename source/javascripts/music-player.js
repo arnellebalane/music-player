@@ -14,6 +14,13 @@ const CENTER_OFFSET = container.querySelector('.song-thumbnail')
 
 
 
+var audioFiles = [
+    'file:///Users/arnelle/Desktop/sample-01.mp3',
+    'file:///Users/arnelle/Desktop/sample-02.mp3',
+    'file:///Users/arnelle/Desktop/sample-03.mp3'
+];
+var audioFilesIndex = 0;
+
 var controls = {
     play: document.querySelector('.control[data-action="play"]'),
     pause: document.querySelector('.control[data-action="pause"]'),
@@ -22,7 +29,7 @@ var controls = {
 };
 
 let audio = new Audio();
-audio.src = 'file:///Users/arnelle/Desktop/sample-music.mp3';
+audio.src = audioFiles[audioFilesIndex];
 audio.autoplay = true;
 
 audio.addEventListener('play', function() {
@@ -38,6 +45,18 @@ audio.addEventListener('pause', function() {
 
 controls.play.addEventListener('click', audio.play.bind(audio));
 controls.pause.addEventListener('click', audio.pause.bind(audio));
+
+controls.previous.addEventListener('click', function() {
+    audioFilesIndex = audioFilesIndex === 0
+        ? audioFiles.length - 1 : audioFilesIndex - 1;
+    audio.src = audioFiles[audioFilesIndex];
+});
+
+controls.next.addEventListener('click', function() {
+    audioFilesIndex = audioFilesIndex === audioFiles.length - 1
+        ? 0 : audioFilesIndex + 1;
+    audio.src = audioFiles[audioFilesIndex];
+});
 
 
 
