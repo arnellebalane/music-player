@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Music Player</title>
+
+        <link rel="stylesheet" href="stylesheets/base.css">
+    </head>
+
+    <body>
+        <h1 class="song-title">Hall Of Fame</h1>
+        <h2 class="song-artist">The Script</h2>
+        <div class="song-thumbnail"></div>
+
+        <div class="controls">
+            <button class="control" data-action="previous">{% include 'images/previous.svg' %}</button>
+            <button class="control" data-action="play">{% include 'images/play.svg' %}</button>
+            <button class="control hidden" data-action="pause">{% include 'images/pause.svg' %}</button>
+            <button class="control" data-action="next">{% include 'images/next.svg' %}</button>
+        </div>
+    </body>
+</html>

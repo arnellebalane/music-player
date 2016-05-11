@@ -12,10 +12,12 @@ var mainWindow = null;
 
 
 app.on('ready', () => {
-    mainWindow = new BrowserWindow({ width: 800, height: 600 });
+    mainWindow = new BrowserWindow({
+        width: 400,
+        height: 600,
+        resizable: false
+    });
     mainWindow.loadURL(`file://${__dirname}/index.html`);
-
-    mainWindow.webContents.openDevTools();
 
     mainWindow.on('closed', () => {
         mainWindow = null;

@@ -1,0 +1,97 @@
+@import "_mixins";
+
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    font-size: 62.5%;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    font-family: "Quicksand", sans-serif;
+    @include font-smoothing();
+    color: #333;
+
+    --player-color-main: #e91e63;
+}
+
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+
+
+/** Utility classes. **/
+
+.hidden {
+    display: none !important;
+}
+
+
+
+/** Song information styles. **/
+
+.song-artist {
+    margin-bottom: 15vh;
+}
+
+
+.song-thumbnail {
+    width: 50vw;
+    height: 50vw;
+    border-radius: 50%;
+    background: var(--player-color-main) center center;
+    background-size: cover;
+}
+
+
+
+/** Player controls styles. **/
+
+.controls {
+    margin-top: 15vh;
+    font-size: 0;
+}
+
+
+.control {
+    width: 10vw;
+    height: 10vw;
+    border: none;
+    margin: 0 3vw;
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+.control:hover,
+.control:focus {
+    background-color: var(--player-color-main);
+}
+
+
+.control path {
+    fill: var(--player-color-main);
+}
+
+.control:hover path,
+.control:focus path {
+    fill: #fff;
+}
