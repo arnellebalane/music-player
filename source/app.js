@@ -1,7 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import electron from 'electron';
 import id3 from 'id3js';
+import shell from 'shelljs';
 import 'babel-polyfill';
 
 
@@ -99,13 +98,9 @@ let audioFiles = [];
 let playingIndex = 0;
 
 ipcMain.on('search-audio-files', (e, audioRootDirectory) => {
-    audioFiles = new Set();
-
-    fs.readdir(audioRootDirectory, (error, files) => {
-        files.filter((file) => /\.mp3$/.test(file))
-            .forEach((file) =>
-                audioFiles.add(path.join(audioRootDirectory, file)));
-        audioFiles = Array.from(audioFiles);
+    let command = `find ${audioRootDirectory} -type f -name '*.mp3'`;
+    shell.exec(command, { silent: true }, (error, stdout) => {
+        audioFiles = stdout.trim().split(/\r?\n/g);
         e.sender.send('audio-files-found');
     });
 });
@@ -148,7 +143,7 @@ function getAudioFileMetadata(audioFile) {
     return new Promise((resolve, reject) => {
         id3({ file: audioFile, type: id3.OPEN_LOCAL }, (error, data) => {
             let audioFileData = {
-                title: data.title || audioFile.split(path.sep).pop(),
+                title: data.title || audioFile.split('/').pop(),
                 artist: data.artist || 'Unknown Artist',
                 path: audioFile
             };
