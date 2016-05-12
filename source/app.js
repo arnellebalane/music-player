@@ -1,6 +1,7 @@
 import electron from 'electron';
 import id3 from 'id3js';
 import shell from 'shelljs';
+import userHome from 'user-home';
 import 'babel-polyfill';
 
 
@@ -51,7 +52,10 @@ let menuTemplate = [
                 label: 'Change Root Audio Directory',
                 accelerator: 'CmdOrCtrl+Shift+D',
                 click: (item, focusedWindow) => {
-                    console.log(item, focusedWindow);
+                    promptAudioRootDirectory((directory) => {
+                        mainWindow.webContents
+                            .send('audio-root-directory', directory);
+                    });
                 }
             },
             {
@@ -96,6 +100,11 @@ const ipcMain = electron.ipcMain;
 
 let audioFiles = [];
 let playingIndex = 0;
+
+ipcMain.on('prompt-audio-root-directory', (e) => {
+    promptAudioRootDirectory((directory) =>
+        e.sender.send('audio-root-directory', directory));
+});
 
 ipcMain.on('search-audio-files', (e, audioRootDirectory) => {
     let command = `find ${audioRootDirectory} -type f -name '*.mp3'`;
@@ -150,4 +159,13 @@ function getAudioFileMetadata(audioFile) {
             resolve(audioFileData);
         });
     });
+}
+
+
+function promptAudioRootDirectory(callback) {
+    electron.dialog.showOpenDialog(mainWindow, {
+        title: 'Select Audio Root Directory',
+        defaultPath: userHome,
+        properties: ['openDirectory']
+    }, callback);
 }

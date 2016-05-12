@@ -1,5 +1,4 @@
 import electron from 'electron';
-import userHome from 'user-home';
 
 
 let container = document.querySelector('.visualization');
@@ -55,11 +54,8 @@ let audioRootDirectory = localStorage.getItem('audio-root-directory');
 if (audioRootDirectory) {
     electron.ipcRenderer.send('search-audio-files', audioRootDirectory);
 } else {
-    electron.remote.dialog.showOpenDialog({
-        title: 'Select Audio Root Directory',
-        defaultPath: userHome,
-        properties: ['openDirectory']
-    }, (directory) => {
+    electron.ipcRenderer.send('prompt-audio-root-directory');
+    electron.ipcRenderer.on('audio-root-directory', (e, directory) => {
         localStorage.setItem('audio-root-directory', directory);
         electron.ipcRenderer.send('search-audio-files', directory);
     });
