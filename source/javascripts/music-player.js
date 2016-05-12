@@ -34,12 +34,18 @@ let song = {
 };
 let seekbar = document.querySelector('.seekbar-click-region');
 let time = document.querySelector('.time-progress');
+let loader = document.querySelector('.loader');
 
 let play = (index) => electron.ipcRenderer.send('play', index);
 let previous = () => electron.ipcRenderer.send('previous');
 let next = () => electron.ipcRenderer.send('next');
 
-electron.ipcRenderer.on('audio-files-found', (e) => play(0));
+electron.ipcRenderer.on('audio-files-found', () => {
+    play(0);
+
+    loader.classList.add('loaded');
+    setTimeout(() => loader.remove(), 250);
+});
 
 electron.ipcRenderer.on('play', (e, audioData) => {
     song.title.textContent = audioData.title;

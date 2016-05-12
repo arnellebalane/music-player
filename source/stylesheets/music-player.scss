@@ -173,3 +173,50 @@ button {
     font-weight: bold;
     color: var(--player-color-main);
 }
+
+
+
+/** Loader screen styles. **/
+
+.loader {
+    @include center-content;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--player-color-main);
+    transition: all 250ms ease-out;
+}
+
+
+.loader::after {
+    content: "";
+    display: block;
+    width: 0;
+    border-top: 2px solid var(--player-color-main);
+    margin-top: 1vh;
+    opacity: 0.75;
+    animation: shrink 500ms ease-out infinite alternate;
+}
+
+
+.loader.loaded {
+    transform: scale(1.5);
+    opacity: 0;
+}
+
+
+@keyframes shrink {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 20vw;
+    }
+}
