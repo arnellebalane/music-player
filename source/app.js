@@ -57,13 +57,6 @@ let menuTemplate = [
                             .send('audio-root-directory', directory);
                     });
                 }
-            },
-            {
-                label: 'Change Player Color',
-                accelerator: 'CmdOrCtrl+Shift+C',
-                click: (item, focusedWindow) => {
-                    console.log(item, focusedWindow);
-                }
             }
         ]
     }
