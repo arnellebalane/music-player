@@ -1,5 +1,4 @@
 node_modules/
 distribution/
-build/
 dist/
 .DS_Store
