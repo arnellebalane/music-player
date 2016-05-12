@@ -1,4 +1,5 @@
 import electron from 'electron';
+import userHome from 'user-home';
 
 
 let container = document.querySelector('.visualization');
@@ -35,13 +36,10 @@ let song = {
 let seekbar = document.querySelector('.seekbar-click-region');
 let time = document.querySelector('.time-progress');
 
-let audioRootDirectory = '/Users/arnelle/Music';
-
 let play = (index) => electron.ipcRenderer.send('play', index);
 let previous = () => electron.ipcRenderer.send('previous');
 let next = () => electron.ipcRenderer.send('next');
 
-electron.ipcRenderer.send('search-audio-files', audioRootDirectory);
 electron.ipcRenderer.on('audio-files-found', (e) => play(0));
 
 electron.ipcRenderer.on('play', (e, audioData) => {
@@ -49,6 +47,23 @@ electron.ipcRenderer.on('play', (e, audioData) => {
     song.artist.textContent = audioData.artist;
     audio.src = audioData.path;
 });
+
+
+
+let audioRootDirectory = localStorage.getItem('audio-root-directory');
+
+if (audioRootDirectory) {
+    electron.ipcRenderer.send('search-audio-files', audioRootDirectory);
+} else {
+    electron.remote.dialog.showOpenDialog({
+        title: 'Select Audio Root Directory',
+        defaultPath: userHome,
+        properties: ['openDirectory']
+    }, (directory) => {
+        localStorage.setItem('audio-root-directory', directory);
+        electron.ipcRenderer.send('search-audio-files', directory);
+    });
+}
 
 
 
