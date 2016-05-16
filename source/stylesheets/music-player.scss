@@ -23,6 +23,7 @@ body {
     font-family: "Quicksand", "QuicksandRegular", sans-serif;
     @include font-smoothing();
     color: #333;
+    overflow: hidden;
     user-select: none;
 
     --player-color-main: #e91e63;
