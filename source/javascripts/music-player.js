@@ -61,11 +61,12 @@ if (audioRootDirectory) {
     electron.ipcRenderer.send('search-audio-files', audioRootDirectory);
 } else {
     electron.ipcRenderer.send('prompt-audio-root-directory');
-    electron.ipcRenderer.on('audio-root-directory', (e, directory) => {
-        localStorage.setItem('audio-root-directory', directory);
-        electron.ipcRenderer.send('search-audio-files', directory);
-    });
 }
+
+electron.ipcRenderer.on('audio-root-directory', (e, directory) => {
+    localStorage.setItem('audio-root-directory', directory);
+    electron.ipcRenderer.send('search-audio-files', directory);
+});
 
 
 
