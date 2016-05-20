@@ -37,14 +37,13 @@ let time = document.querySelector('.time-progress');
 let loader = document.querySelector('.loader');
 
 let play = (index) => electron.ipcRenderer.send('play', index);
+let pause = () => audio.pause();
 let previous = () => electron.ipcRenderer.send('previous');
 let next = () => electron.ipcRenderer.send('next');
 
 electron.ipcRenderer.on('audio-files-found', () => {
     play(0);
-
     loader.classList.add('loaded');
-    setTimeout(() => loader.remove(), 250);
 });
 
 electron.ipcRenderer.on('play', (e, audioData) => {
@@ -64,8 +63,10 @@ if (audioRootDirectory) {
 }
 
 electron.ipcRenderer.on('audio-root-directory', (e, directory) => {
+    pause();
     localStorage.setItem('audio-root-directory', directory);
     electron.ipcRenderer.send('search-audio-files', directory);
+    loader.classList.remove('loaded');
 });
 
 

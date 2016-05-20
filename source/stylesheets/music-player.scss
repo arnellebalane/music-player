@@ -192,6 +192,7 @@ button {
     font-weight: bold;
     color: var(--player-color-main);
     transition: all 250ms ease-out;
+    pointer-events: none;
 }
 
 
