@@ -34,7 +34,7 @@ let song = {
 };
 let seekbar = document.querySelector('.seekbar-click-region');
 let time = document.querySelector('.time-progress');
-let loader = document.querySelector('.loader');
+let loadingScreen = document.querySelector('.loading-screen');
 
 let play = (index) => electron.ipcRenderer.send('play', index);
 let pause = () => audio.pause();
@@ -43,7 +43,7 @@ let next = () => electron.ipcRenderer.send('next');
 
 electron.ipcRenderer.on('audio-files-found', () => {
     play(0);
-    loader.classList.add('loaded');
+    loadingScreen.classList.add('scale-up');
 });
 
 electron.ipcRenderer.on('play', (e, audioData) => {
@@ -66,7 +66,7 @@ electron.ipcRenderer.on('audio-root-directory', (e, directory) => {
     pause();
     localStorage.setItem('audio-root-directory', directory);
     electron.ipcRenderer.send('search-audio-files', directory);
-    loader.classList.remove('loaded');
+    loadingScreen.classList.remove('scale-up');
 });
 
 

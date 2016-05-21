@@ -177,12 +177,12 @@ button {
 
 
 
-/** Loader screen styles. **/
+/** Generic screen styles. **/
 
-.loader {
+.screen {
     @include center-content;
     flex-direction: column;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -196,10 +196,26 @@ button {
 }
 
 
-.loader::after {
+.screen.scale-up {
+    transform: scale(2);
+    opacity: 0;
+}
+
+
+.screen.scale-down {
+    transform: scale(0.5);
+    opacity: 0;
+}
+
+
+
+/** Loading screen styles **/
+
+.loading-screen p::after {
     content: "";
     display: block;
-    width: 0;
+    width: 50%;
+    margin-left: 25%;
     border-top: 2px solid var(--player-color-main);
     margin-top: 1vh;
     opacity: 0.75;
@@ -207,18 +223,12 @@ button {
 }
 
 
-.loader.loaded {
-    transform: scale(1.5);
-    opacity: 0;
-}
-
-
 @keyframes shrink {
     from {
-        width: 0;
+        transform: scaleX(1.5);
     }
 
     to {
-        width: 20vw;
+        transform: scaleX(0);
     }
 }
